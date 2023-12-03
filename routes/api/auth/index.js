@@ -10,4 +10,6 @@ router.post("/sign-up", verifyToken, authController.signUpWithPassword);
 
 router.post("/sign-in", authController.signInWithPassword);
 
+router.post("/verify-otp", authController.verifyOTP);
+
 module.exports = router;

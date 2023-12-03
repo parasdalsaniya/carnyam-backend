@@ -38,9 +38,17 @@ const signInWithPasswordModule = async () => {
   }
 };
 
+const verifyOTPModule = async () => {
+  try {
+    console.log("verify OTP");
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   googleSignUpModule,
   signUpWithPasswordModule,
   signInWithPasswordModule,
+  verifyOTPModule,
 };
