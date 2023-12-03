@@ -196,7 +196,6 @@ module.exports = {
   formatDateLib: formatDateLib,
   formatDateTimeLib: formatDateTimeLib,
   generateOTP: generateOTP,
-  //   sendMail: sendMail,
   expiryTime: expiryTime,
   recaptcha: recaptcha,
   downloadImage: downloadImage,
