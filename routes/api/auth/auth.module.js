@@ -22,6 +22,25 @@ const googleSignUpModule = async (req) => {
   return { status: true, url: googleUrl };
 };
 
+const signUpWithPasswordModule = async () => {
+  try {
+    console.log("signUpWithPasswordModule");
+  } catch (error) {
+    throw error;
+  }
+};
+
+const signInWithPasswordModule = async () => {
+  try {
+    console.log("signInWithPasswordModule");
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 module.exports = {
-  googleSignUpModule: googleSignUpModule,
+  googleSignUpModule,
+  signUpWithPasswordModule,
+  signInWithPasswordModule,
 };
