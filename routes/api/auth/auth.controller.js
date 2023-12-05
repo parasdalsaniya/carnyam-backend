@@ -13,8 +13,8 @@ const googleSignUpController = async (req, res) => {
 
 const signUpWithPassword = async (req, res) => {
   try {
-    const newUser = await signUpWithPasswordModule(req.body);
-    return res.status(201).json({
+    const newUser = await signUpWithPasswordModule(req);
+    return res.status(200).json({
       status: true,
       message: "Sign up successful",
       data: newUser,
@@ -23,24 +23,24 @@ const signUpWithPassword = async (req, res) => {
     console.log("SignUp Error: ", error);
     return res.status(error.statusCode || 500).json({
       status: error.status || false,
-      message: error || errors.INTERNAL_SERVER_ERROR,
+      message: error.message || errors.INTERNAL_SERVER_ERROR,
     });
   }
 };
 
 const signInWithPassword = async (req, res) => {
   try {
-    const newUser = await signInWithPasswordModule(req.body);
+    const newUser = await signInWithPasswordModule(req, res);
     return res.status(201).json({
       status: true,
-      message: "Sign up successful",
+      message: "Sign In successful",
       data: newUser,
     });
   } catch (error) {
-    console.log("SignUp Error: ", error);
+    console.log("Sign In Error: ", error);
     return res.status(error.statusCode || 500).json({
       status: error.status || false,
-      message: error || errors.INTERNAL_SERVER_ERROR,
+      message: error.message || errors.INTERNAL_SERVER_ERROR,
     });
   }
 };

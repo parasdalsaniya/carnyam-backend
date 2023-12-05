@@ -6,7 +6,7 @@ const { verifyToken } = require("../../middleware")
 
 router.get("/google-sign-up", authController.googleSignUpController);
 
-router.post("/sign-up", verifyToken, authController.signUpWithPassword);
+router.post("/sign-up", authController.signUpWithPassword);
 
 router.post("/sign-in", authController.signInWithPassword);
 
