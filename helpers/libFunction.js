@@ -1,6 +1,6 @@
 // var constant = require("../public/document");
 //Change Log
-
+var fs = require("fs");
 //Crete Access token
 async function makeid(length) {
   var result = "";
@@ -137,15 +137,15 @@ async function recaptcha(reCaptchaCode) {
   return recaptchaData;
 }
 
-async function downloadImage(imageUrl, filePath) {
+const downloadImage = async (imageUrl, filePath) => {
   try {
-    const file = fs.createWriteStream(filePath);
+    const file = await fs.createWriteStream(filePath);
 
     const response = await new Promise((resolve, reject) => {
       https.get(imageUrl, resolve).on("error", reject);
     });
 
-    response.pipe(file);
+    await response.pipe(file);
 
     await new Promise((resolve, reject) => {
       file.on("finish", resolve);
@@ -156,12 +156,13 @@ async function downloadImage(imageUrl, filePath) {
       data: filePath,
     };
   } catch (error) {
+    console.log(error, "::::::::::::::::::::::::");
     return {
       status: false,
       data: error,
     };
   }
-}
+};
 
 async function generateOTP(length) {
   var result = "";
