@@ -1,4 +1,5 @@
 const authModule = require("./auth.module");
+
 const { errors } = require("../../../helpers/consts");
 
 const googleSignUpController = async (req, res) => {
@@ -44,11 +45,13 @@ const signInWithPassword = async (req, res) => {
 const googleCallBackController = async (req, res) => {
   const result = await authModule.googleCallBackModule(req);
   return res.send(result);
-};
+
+
 
 module.exports = {
   googleSignUpController,
   signUpWithPassword,
   signInWithPassword,
   googleCallBackController,
+
 };

@@ -11,4 +11,5 @@ router.post("/sign-up", verifyToken, authController.signUpWithPassword);
 router.post("/sign-in", authController.signInWithPassword);
 
 router.get("/google/callback", authController.googleCallBackController);
+
 module.exports = router;

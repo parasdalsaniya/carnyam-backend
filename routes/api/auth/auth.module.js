@@ -146,8 +146,6 @@ const googleCallBackModule = async (req) => {
       status: false,
       error: e,
     };
-  }
-};
 
 module.exports = {
   googleSignUpModule,
