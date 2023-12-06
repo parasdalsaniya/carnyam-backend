@@ -1,4 +1,4 @@
-const AWS =  require={}("aws-sdk");
+const AWS = require = {}("aws-sdk");
 const {
   REACT_APP_AWS_BUCKET,
   REACT_APP_AWS_REGION,
@@ -6,7 +6,7 @@ const {
   REACT_APP_SECRET_ACCESS_KEY,
 } = process.env;
 
-export const uploadImageToS3 = async (file) => {
+const uploadImageToS3 = async (file) => {
   try {
     AWS.config.update({
       credentials: new AWS.Credentials({
@@ -46,3 +46,7 @@ export const uploadImageToS3 = async (file) => {
     throw error;
   }
 };
+
+module.exports = {
+  uploadImageToS3
+}

@@ -35,6 +35,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(4001);
-console.log("Server Runing ", 3000);
+const PORT = process.env.PORT || 4001
+app.listen(PORT);
+console.log("Server Runing ", PORT);
 module.exports = app;
