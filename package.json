@@ -20,6 +20,5 @@
     "morgan": "~1.9.1",
     "pg": "^8.11.3",
     "sync-request": "^6.1.0"
-    "jsonwebtoken": "^9.0.2"
   }
 }

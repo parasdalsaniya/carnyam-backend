@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
+const { seedData } = require("./seed/seed");
 var app = express();
 
 // view engine setup
@@ -36,6 +37,8 @@ app.use(function (err, req, res, next) {
 });
 
 const PORT = process.env.PORT || 4001
-app.listen(PORT);
-console.log("Server Runing ", PORT);
+seedData().then(() => {
+  app.listen(PORT);
+  console.log("Server Running on", PORT);
+})
 module.exports = app;

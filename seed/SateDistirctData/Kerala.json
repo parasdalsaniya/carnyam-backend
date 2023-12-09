@@ -1,0 +1,168 @@
+{
+    "sate": "Kerala",
+    "state_url": "https://igod.gov.in/sg/KL/categories",
+    "district_name": [
+        {
+            "district_name": "Alappuzha",
+            "district_url": "https://igod.gov.in/district/QDg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Ambalappuzha",
+                "Chengannur",
+                "Cherthala",
+                "Karthikappally",
+                "Kuttanad",
+                "Mavelikkara"
+            ]
+        },
+        {
+            "district_name": "Ernakulam",
+            "district_url": "https://igod.gov.in/district/mTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Aluva",
+                "Kanayannur",
+                "Kochi",
+                "Kothamangalam",
+                "Kunnathunad",
+                "Muvattupuzha",
+                "Paravur"
+            ]
+        },
+        {
+            "district_name": "Idukki",
+            "district_url": "https://igod.gov.in/district/9zg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Devikulam",
+                "Idukki",
+                "Peerumade",
+                "Thodupuzha",
+                "Udumbanchola"
+            ]
+        },
+        {
+            "district_name": "Kannur",
+            "district_url": "https://igod.gov.in/district/QTg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Iritty",
+                "Kannur",
+                "Payyannur",
+                "Taliparamba",
+                "Thalassery"
+            ]
+        },
+        {
+            "district_name": "Kasaragod",
+            "district_url": "https://igod.gov.in/district/NDg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Hosdurg",
+                "Kasaragod",
+                "Manjeswaram",
+                "Vellarikkundu"
+            ]
+        },
+        {
+            "district_name": "Kollam",
+            "district_url": "https://igod.gov.in/district/Qjg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Karunagappally",
+                "Kollam",
+                "Kottarakkara",
+                "Kunnathur",
+                "Pathanapuram",
+                "Punalur"
+            ]
+        },
+        {
+            "district_name": "Kottayam",
+            "district_url": "https://igod.gov.in/district/UTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Changanassery",
+                "Kanjirappally",
+                "Kottayam",
+                "Meenachil",
+                "Vaikom"
+            ]
+        },
+        {
+            "district_name": "Kozhikode",
+            "district_url": "https://igod.gov.in/district/Ujg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Koyilandi",
+                "Kozhikode",
+                "Thamarassery",
+                "Vatakara"
+            ]
+        },
+        {
+            "district_name": "Malappuram",
+            "district_url": "https://igod.gov.in/district/Azg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Ernad",
+                "Kondotty",
+                "Nilambur",
+                "Perinthalmanna",
+                "Ponnani",
+                "Tirur",
+                "Tirurangadi"
+            ]
+        },
+        {
+            "district_name": "Palakkad",
+            "district_url": "https://igod.gov.in/district/9jg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Alathur",
+                "Chittur",
+                "Mannarkad",
+                "Ottappalam",
+                "Palakkad",
+                "Pattambi",
+                "Tribal Taluk Office Attappadi"
+            ]
+        },
+        {
+            "district_name": "Pathanamthitta",
+            "district_url": "https://igod.gov.in/district/Uzg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Adoor",
+                "Konni",
+                "Kozhenchery",
+                "Mallappally",
+                "Ranni",
+                "Thiruvalla"
+            ]
+        },
+        {
+            "district_name": "Thiruvananthapuram",
+            "district_url": "https://igod.gov.in/district/VDg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Chirayinkeezhu",
+                "Kattakkada",
+                "Nedumangad",
+                "Neyyattinkara",
+                "Thiruvananthapuram",
+                "Varkala"
+            ]
+        },
+        {
+            "district_name": "Thrissur",
+            "district_url": "https://igod.gov.in/district/VTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Chalakkudy",
+                "Chavakkad",
+                "Kodungallur",
+                "Kunnamkulam",
+                "Mukundapuram",
+                "Talappilly",
+                "Thrissur"
+            ]
+        },
+        {
+            "district_name": "Wayanad",
+            "district_url": "https://igod.gov.in/district/NTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Mananthavady",
+                "Sulthanbathery",
+                "Vythiri"
+            ]
+        }
+    ]
+}

@@ -1,12 +1,10 @@
 const crud = require("../../crud");
 
-const insert = async () => {
-  var sql = `Insert into test values ('2','Vivek')`;
-const createUser = async ({name, email, password, mobile, gender, profileImage, timestamp, authId}) => {
+const createUser = async ({ name, email, password, mobile, gender, profileImage, timestamp, authId }) => {
   const auth = authId ? `'${authId}'` : null;
   var sql = `INSERT INTO public."user"(
-    user_name, user_email, user_password, user_mobile_number, gender_id, storage_id, "timestamp", oauth_id)
-    VALUES ('${name}', '${email}', '${password}', '${mobile}', '${gender}', '${profileImage}', '${timestamp}', ${auth}) returning *;`;
+  user_name, user_email, user_password, user_mobile_number, gender_id, storage_id, "timestamp", oauth_id)
+  VALUES ('${name}', '${email}', '${password}', '${mobile}', '${gender}', '${profileImage}', '${timestamp}', ${auth}) returning *;`;
 
   var result = await crud.executeQuery(sql);
   return result;
@@ -40,6 +38,8 @@ const updateStateToken = async (
 ) => {
   var sql = `update outbound_api_app_auth_log set outbound_api_app_auth_log_code = '${code}',timestamp = '${timestamp}', outbound_api_app_auth_log_auth_url = '${url}'  where outbound_api_app_auth_log_id = ${outboundApiAppAuthLogId}`;
   var result = await crud.executeQuery(sql);
+}
+
 const getUser = async (params) => {
   let sql = `SELECT * FROM public."user" WHERE flag_deleted=false AND history_id IS NULL`;
 
@@ -66,13 +66,12 @@ const getUser = async (params) => {
   return result;
 };
 
-
 const updateUser = async ({ email, mobile }, updatedFields) => {
   let sql = `UPDATE public."user" SET`;
 
   const updateFields = [];
   for (const key in updatedFields) {
-    if (Object.prototype.hasOwnProperty.call(updatedFields, key)) 
+    if (Object.prototype.hasOwnProperty.call(updatedFields, key))
       updateFields.push(`${key} = '${updatedFields[key]}'`);
   }
 
@@ -83,7 +82,6 @@ const updateUser = async ({ email, mobile }, updatedFields) => {
 };
 
 module.exports = {
-  insert: insert,
   authAddAuthLogDB,
   getOutboundApiAppAuthLogByStateToken,
   updateStateToken,

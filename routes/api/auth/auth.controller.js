@@ -45,7 +45,7 @@ const signInWithPassword = async (req, res) => {
 const googleCallBackController = async (req, res) => {
   const result = await authModule.googleCallBackModule(req);
   return res.send(result);
-
+}
 
 
 module.exports = {
