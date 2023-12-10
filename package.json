@@ -14,12 +14,14 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "google": "^2.1.0",
+    "googleapis": "^129.0.0",
     "http-errors": "~1.6.3",
     "jade": "^1.9.2",
     "jsonwebtoken": "^9.0.2",
     "morgan": "~1.9.1",
+    "nodemailer": "^6.9.7",
     "pg": "^8.11.3",
     "sync-request": "^6.1.0"
-    "jsonwebtoken": "^9.0.2"
   }
 }

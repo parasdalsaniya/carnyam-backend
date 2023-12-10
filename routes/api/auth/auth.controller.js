@@ -1,6 +1,7 @@
 const authModule = require("./auth.module");
 
 const { errors } = require("../../../helpers/consts");
+const libFunction = require("../../../helpers/libFunction");
 
 const googleSignUpController = async (req, res) => {
   console.log("AuthForgotContoller");
@@ -10,7 +11,7 @@ const googleSignUpController = async (req, res) => {
 
 const signUpWithPassword = async (req, res) => {
   try {
-    const newUser = await signUpWithPasswordModule(req);
+    const newUser = await authModule.signUpWithPasswordModule(req);
     return res.status(200).json({
       status: true,
       message: "Sign up successful",
@@ -27,7 +28,7 @@ const signUpWithPassword = async (req, res) => {
 
 const signInWithPassword = async (req, res) => {
   try {
-    const newUser = await signInWithPasswordModule(req, res);
+    const newUser = await authModule.signInWithPasswordModule(req, res);
     return res.status(201).json({
       status: true,
       message: "Sign In successful",
@@ -45,13 +46,11 @@ const signInWithPassword = async (req, res) => {
 const googleCallBackController = async (req, res) => {
   const result = await authModule.googleCallBackModule(req);
   return res.send(result);
-
-
+};
 
 module.exports = {
   googleSignUpController,
   signUpWithPassword,
   signInWithPassword,
   googleCallBackController,
-
 };
