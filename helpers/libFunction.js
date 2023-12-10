@@ -1,6 +1,11 @@
 // var constant = require("../public/document");
 //Change Log
 var fs = require("fs");
+var { google } = require("googleapis");
+const https = require("https");
+const dotenv = require("dotenv").config();
+var nodemailer = require("nodemailer");
+var crud = require("../routes/crud");
 //Crete Access token
 async function makeid(length) {
   var result = "";
@@ -63,63 +68,63 @@ async function expiryTime(expiry_minute_time) {
   return expiry_time_string;
 }
 
-// const oAuth2Client = new google.auth.OAuth2(
-//   process.env.CLIENT_ID,
-//   process.env.CLIENT_SECRET,
-//   process.env.REDIRECT_URIS
-// );
-// oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.GMAIL_CLIENT_ID,
+  process.env.GMAIL_CLIENT_SECRET,
+  process.env.REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 
-// //Gmail API mailer
-// async function sendMail(email, htmlFormate, subject, cc, bcc) {
-//   try {
-//     const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
-//     const transport = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: {
-//         type: "OAuth2",
-//         user: "dhaval@acedataanalytics.com",
-//         clientId: process.env.CLIENT_ID,
-//         clientSecret: process.env.CLIENT_SECRET,
-//         refreshToken: process.env.REFRESH_TOKEN,
-//         accessToken: ACCESS_TOKEN,
-//       },
-//     });
-//     const mailOptions = {
-//       from: `"Dhaval" <dhaval@acedataanalytics.com>`,
-//       to: email, //emailTo
-//       subject: subject,
-//       html: htmlFormate,
-//     };
+//Gmail API mailer
+async function sendMail(email, htmlFormate, subject, cc, bcc) {
+  try {
+    const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
+    const transport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: "dhaval@acedataanalytics.com",
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        refreshToken: process.env.REFRESH_TOKEN,
+        accessToken: ACCESS_TOKEN,
+      },
+    });
+    const mailOptions = {
+      from: `"Dhaval" <dhaval@acedataanalytics.com>`,
+      to: email, //emailTo
+      subject: subject,
+      html: htmlFormate,
+    };
 
-//     if (cc != undefined) {
-//       mailOptions["cc"] = cc;
-//     }
+    if (cc != undefined) {
+      mailOptions["cc"] = cc;
+    }
 
-//     if (bcc != undefined) {
-//       mailOptions["bcc"] = bcc;
-//     }
+    if (bcc != undefined) {
+      mailOptions["bcc"] = bcc;
+    }
 
-//     try {
-//       const result = await transport.sendMail(mailOptions);
-//       console.log("Result:::::::::::::::::::::::::::::::::", result);
-//       return result;
-//     } catch (err) {
-//       console.log("Error - 1 ::::::::::::::::::::::::::::::::::", err.message);
-//       return {
-//         status: false,
-//         error: err.message,
-//       };
-//     }
-//   } catch (err) {
-//     console.log("Error - 2 ::::::::::::::::::::::::::::::::::::", err.message);
-//     return {
-//       status: false,
-//       error: err.message,
-//     };
-//   }
-// }
-
+    try {
+      const result = await transport.sendMail(mailOptions);
+      console.log("Result:::::::::::::::::::::::::::::::::", result);
+      return result;
+    } catch (err) {
+      console.log("Error - 1 ::::::::::::::::::::::::::::::::::", err.message);
+      return {
+        status: false,
+        error: err.message,
+      };
+    }
+  } catch (err) {
+    console.log("Error - 2 ::::::::::::::::::::::::::::::::::::", err.message);
+    return {
+      status: false,
+      error: err.message,
+    };
+  }
+}
+// sendMail("dhavaldubariya35@gmail.com", "<h1>123456</h1>", "Hello");
 // check recaptcha
 async function recaptcha(reCaptchaCode) {
   var recaptchaReq = sync_request(
@@ -139,7 +144,7 @@ async function recaptcha(reCaptchaCode) {
 
 const downloadImage = async (imageUrl, filePath) => {
   try {
-    const file = await fs.createWriteStream(filePath);
+    const file = fs.createWriteStream(filePath);
 
     const response = await new Promise((resolve, reject) => {
       https.get(imageUrl, resolve).on("error", reject);
@@ -156,7 +161,6 @@ const downloadImage = async (imageUrl, filePath) => {
       data: filePath,
     };
   } catch (error) {
-    console.log(error, "::::::::::::::::::::::::");
     return {
       status: false,
       data: error,
@@ -192,6 +196,75 @@ const getExpireTimeStamp = async (flag) => {
   return expireTimeStamp;
 };
 
+async function trimValues(item) {
+  if (typeof item === "string") {
+    return item.replace(/'/g, "''").trim();
+  } else if (typeof item === "object" && item !== null) {
+    if (Array.isArray(item)) {
+      // If the item is an array, recursively call trimValues for each element
+      return item.map(trimValues);
+    } else {
+      // If the item is an object, recursively call trimValues for each value
+      for (let key in item) {
+        if (item.hasOwnProperty(key)) {
+          item[key] = trimValues(item[key]);
+        }
+      }
+      return item;
+    }
+  }
+  // For other data types, return as is
+  return item;
+}
+
+const changeLogDetailsLib = async (obj) => {
+  console.log(obj);
+  const date = new Date();
+  var fieldArr = [
+    { field: "ip_address", value: obj.ipAddress },
+    { field: "timestamp", value: await formatDateTimeLib(date) },
+    { field: "user_id", value: obj.userId },
+  ];
+
+  if (obj.companyId)
+    fieldArr.push({ field: "company_id", value: obj.companyId });
+  const changeLogDetails = await crud.executeQuery(
+    crud.makeInsertQueryString(
+      "change_log",
+      fieldArr,
+      ["change_log_id", "timestamp"],
+      false
+    )
+  );
+
+  if (!changeLogDetails.status) {
+    return {
+      status: false,
+      error: constant.requestMessages.ERR_WHILE_EXCUTING_MYSQL_QUERY,
+    };
+  }
+  return changeLogDetails.data[0].change_log_id;
+};
+
+const InsertQuery = async (table_name, coulmn_name, value) => {
+  var sql = `select * from ${table_name} where ${coulmn_name} ='${value}'`;
+  var categoryData = await crud.executeQuery(sql);
+  if (categoryData.status == false || categoryData.data.length == 0) {
+    return { status: false };
+  }
+  var keys = Object.keys(categoryData.data[0]);
+  var index = keys.indexOf(coulmn_name);
+  keys.splice(index, 1);
+  var sql2 = `insert into ${table_name} (${keys.join(",")})
+    SELECT ${keys.join(",")} 
+    FROM ${table_name} where ${coulmn_name}='${value}' returning *;`;
+  var insertedData = await crud.executeQuery(sql2);
+  await crud.executeQuery(
+    `update ${table_name} set history_id='${value}' where ${coulmn_name}='${insertedData.data[0][coulmn_name]}';`
+  );
+  return { status: insertedData.status };
+};
+
 module.exports = {
   makeid: makeid,
   formatDateLib: formatDateLib,
@@ -202,4 +275,8 @@ module.exports = {
   downloadImage: downloadImage,
   expiryTimeInMin: expiryTimeInMin,
   getExpireTimeStamp: getExpireTimeStamp,
+  trimValues: trimValues,
+  sendMail: sendMail,
+  changeLogDetailsLib: changeLogDetailsLib,
+  InsertQuery: InsertQuery,
 };
