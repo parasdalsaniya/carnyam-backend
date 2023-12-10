@@ -1,33 +1,47 @@
-var jwt = require("jsonwebtoken");
-var dotenv = require("dotenv");
+const crud = require("./crud");
 
-dotenv.config();
+const checkAccessToken = async (req, res, next) => {
+  console.log(
+    "Cookies:::::::::::::::::::::::::::::::::::::::::::::::::::::",
+    req.cookies["cn-ssid"]
+  );
 
-const verifyToken = function(req, res, next) {
-  try {
-    var token = req.headers.token;
-
-    if (!token) throw { status: 401, message: "User is not authenticated!" };
-
-    jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
-      if (err) throw { status: 403, message: "Token is not valid!" };
-      // User.findById(user._id, function(err, userData) {
-      //   if (err || !userData) throw { status: 403, message: "User not found!" };
-      //   req.user = userData;
-      //   next();
-      // });
-      next();
-    });
-
-  } catch (error) {
-    res.status(error.status || 500).json({
+  var authTokenHeader = req.cookies["cn-ssid"] || req.headers["authorization"];
+  if (authTokenHeader) authTokenHeader = authTokenHeader.replace("Bearer ", "");
+  var accessToken = authTokenHeader;
+  console.log(accessToken);
+  if (accessToken === undefined) {
+    console.log("There is no Token");
+    return res.status(401).send({
       status: false,
-      message: error.message || "Something went wrong"
+      error: {
+        code: 401,
+        message: "Error invalid authentication found ...................",
+      },
     });
   }
+  var date = new Date();
+
+  let currentTimeStamp = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  const sql = `select user_id from user_access_token where user_access_token_value = '${accessToken}' and user_access_token_expiry_time >= '${currentTimeStamp}'and user_access_token_flag_logout=false `;
+  const getUserIdByATokenDB = await crud.executeQuery(sql);
+  console.log(getUserIdByATokenDB);
+  console.log(getUserIdByATokenDB);
+  if (getUserIdByATokenDB.data.length == 0) {
+    return res.status(401).send({
+      status: false,
+      error: {
+        code: 401,
+        message: "Error invalid authentication found.",
+      },
+    });
+  }
+  req.user_id = getUserIdByATokenDB.data[0].user_id;
+  req.access_token_data = accessToken;
+  next();
 };
-
-
 module.exports = {
-  verifyToken
-}
+  checkAccessToken: checkAccessToken,
+};
