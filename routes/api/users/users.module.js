@@ -377,6 +377,13 @@ const getCityModule = async (req) => {
   return { status: true, data: cityDetailMap };
 };
 
+const deleteUserModule = async (req) => {
+  var userId = req.query.user_id;
+
+  var result = await userDb.deleteUser(userId);
+  return result;
+};
+
 module.exports = {
   getUserDetailModule: getUserDetailModule,
   sendOtpForLoginModule: sendOtpForLoginModule,
@@ -384,4 +391,5 @@ module.exports = {
   updateUserModule: updateUserModule,
   getDistrictModule: getDistrictModule,
   getCityModule: getCityModule,
+  deleteUserModule: deleteUserModule,
 };

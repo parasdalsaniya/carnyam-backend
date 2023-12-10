@@ -24,4 +24,6 @@ router.get("/district", userController.getDistrictController);
 
 router.get("/city", userController.getCityController);
 
+router.get("/delete-user",userController.deleteUserController)
+
 module.exports = router;

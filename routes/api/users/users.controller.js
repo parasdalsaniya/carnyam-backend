@@ -30,6 +30,11 @@ const getCityController = async (req, res) => {
   return res.send(result);
 };
 
+const deleteUserController = async (req, res) => {
+  const result = await userModule.deleteUserModule(req);
+  return res.send(result);
+};
+
 module.exports = {
   getUserDetailController: getUserDetailController,
   sendOtpForLoginController: sendOtpForLoginController,
@@ -37,4 +42,5 @@ module.exports = {
   updateUserController: updateUserController,
   getDistrictController: getDistrictController,
   getCityController: getCityController,
+  deleteUserController: deleteUserController,
 };

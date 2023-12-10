@@ -119,6 +119,12 @@ const getCityByDistrictId = async (cityId) => {
   return result;
 };
 
+const deleteUser = async (userId) => {
+  var sql = `update public.user set flag_deleted = true where user_id = '${userId}'`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
 module.exports = {
   getUserDetailbyUserId,
   getUserDetailbyMobileNumber,
@@ -132,4 +138,5 @@ module.exports = {
   updateUserNameAndStorageId,
   getDistrict,
   getCityByDistrictId,
+  deleteUser,
 };
