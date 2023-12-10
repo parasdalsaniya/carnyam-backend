@@ -46,6 +46,79 @@ const updateOtpFlag = async (otpAuthId, changeLogId) => {
   return result;
 };
 
+const getUserAddressbyUserId = async (userId) => {
+  var sql = `select * from user_address where history_id is null and flag_deleted = false and user_id = '${userId}'`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const createUserAddress = async (
+  street,
+  districtId,
+  cityId,
+  gstNo,
+  changeLogId,
+  userId
+) => {
+  street = street == null ? null : `'${street}'`;
+  districtId = districtId == null ? null : `'${districtId}'`;
+  cityId = cityId == null ? null : `'${cityId}'`;
+  gstNo = gstNo == null ? null : `'${gstNo}'`;
+  var sql = `INSERT INTO user_address(
+    user_address_city_id, user_address_district_id,user_address_street, flag_deleted, change_log_id, gst_number, storage_id, user_id)
+    VALUES (${cityId}, ${districtId}, ${street}, 'false', '${changeLogId}', ${gstNo},null,'${userId}') returning * ;`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const updateUserAddress = async (
+  street,
+  districtId,
+  cityId,
+  gstNo,
+  changeLogId,
+  userAddressId
+) => {
+  street = street == null ? null : `'${street}'`;
+  districtId = districtId == null ? null : `'${districtId}'`;
+  cityId = cityId == null ? null : `'${cityId}'`;
+  gstNo = gstNo == null ? null : `'${gstNo}'`;
+
+  var sql = `update user_address set user_address_city_id = ${cityId},
+  user_address_district_id = ${districtId},
+  user_address_street = ${street},
+  gst_number = ${gstNo},
+  change_log_id = ${changeLogId} where user_address_id = '${userAddressId}'`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+var updateUserNameAndStorageId = async (
+  name,
+  storageId,
+  timestamp,
+  changeLogId,
+  userId
+) => {
+  name = name == null ? null : `'${name}'`;
+  storageId = storageId == null ? null : `'${storageId}'`;
+  var sql = `update public.user set storage_id = ${storageId},user_name = ${name} ,change_log_id = '${changeLogId}' ,timestamp = '${timestamp}' where user_id = '${userId}' and history_id is null and flag_deleted = false`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const getDistrict = async () => {
+  var sql = `select * from district order by district_name`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const getCityByDistrictId = async (cityId) => {
+  var sql = `select * from sub_district where district_id = '${cityId}' order by sub_district_name `;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
 module.exports = {
   getUserDetailbyUserId,
   getUserDetailbyMobileNumber,
@@ -53,4 +126,10 @@ module.exports = {
   getVerifiedOtp,
   updateMobileNumberFlag,
   updateOtpFlag,
+  getUserAddressbyUserId,
+  updateUserAddress,
+  createUserAddress,
+  updateUserNameAndStorageId,
+  getDistrict,
+  getCityByDistrictId,
 };

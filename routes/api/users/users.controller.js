@@ -15,8 +15,26 @@ const verifyOtpForLoginController = async (req, res) => {
   return res.send(result);
 };
 
+const updateUserController = async (req, res) => {
+  const result = await userModule.updateUserModule(req);
+  return res.send(result);
+};
+
+const getDistrictController = async (req, res) => {
+  const result = await userModule.getDistrictModule(req);
+  return res.send(result);
+};
+
+const getCityController = async (req, res) => {
+  const result = await userModule.getCityModule(req);
+  return res.send(result);
+};
+
 module.exports = {
   getUserDetailController: getUserDetailController,
   sendOtpForLoginController: sendOtpForLoginController,
   verifyOtpForLoginController: verifyOtpForLoginController,
+  updateUserController: updateUserController,
+  getDistrictController: getDistrictController,
+  getCityController: getCityController,
 };
