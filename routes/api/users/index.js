@@ -10,16 +10,8 @@ router.get(
   userController.getUserDetailController
 );
 
-router.post(
-  "/send-otp-login",
-  middleware.checkAccessToken,
-  userController.sendOtpForLoginController
-);
+router.post("/send-otp-login", userController.sendOtpForLoginController);
 
-router.post(
-  "/verify-otp-login",
-  middleware.checkAccessToken,
-  userController.verifyOtpForLoginController
-);
+router.post("/verify-otp-login", userController.verifyOtpForLoginController);
 
 module.exports = router;

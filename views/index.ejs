@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Login</title>
+</head>
+
+<body>
+  <% if(loginData.status==false){%>
+    <div style="text-align: center; margin-top: 20%">
+      <i style="font-size: 50px" class="fa-solid fa-square-xmark"></i>
+      <p style="font-size: 35px; font-family: 'Philosopher'; font-style: normal">
+        <%= loginData.error.message %>
+      </p>
+      <a style="font-family: 'Philosopher'; font-style: normal; font-weight: 700; font-size: 15px; line-height: 17px; color: #ffffff; background: #2765ff; border-radius: 5px; padding: 10px 30px; text-decoration: none"
+        href="https://app.filemaster.io/login">Login</a>
+    </div>
+    <% } else { %>
+      <script>
+        document.location.href = "https://app.filemaster.io"
+      </script>
+      <% } %>
+</body>
+
+</html>

@@ -120,6 +120,12 @@ const creaetUserAccessToken = async (
   return result;
 };
 
+const getUserByEmailId = async (email) => {
+  var sql = `select * from public.user where user_email = '${email}' and history_id is null and flag_deleted = false `;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
 module.exports = {
   authAddAuthLogDB,
   getOutboundApiAppAuthLogByStateToken,
@@ -129,4 +135,5 @@ module.exports = {
   updateUser,
   createAuthOtp,
   creaetUserAccessToken,
+  getUserByEmailId,
 };
