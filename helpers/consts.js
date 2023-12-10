@@ -1,6 +1,4 @@
-const errors = {
-  INTERNAL_SERVER_ERROR: "Internal server error.",
-};
+const errors = {};
 
 module.exports.requestMessages = {
   ERR_INVALID_BODY: {
@@ -12,8 +10,16 @@ module.exports.requestMessages = {
   ERR_SOMTHIN_WENT_WRONG: {
     message: "Somthing Went wrong",
   },
-};
-
-module.exports = {
-  errors,
+  ERR_INVALID_API_REQUEST: {
+    message: "Invalid API Request",
+  },
+  INTERNAL_SERVER_ERROR: {
+    message: "Internal server error.",
+  },
+  ERR_USER_NOT_FOUND: {
+    message: "User Not Found",
+  },
+  ERR_INVALID_OTP: {
+    message: "Invalid OTP",
+  },
 };

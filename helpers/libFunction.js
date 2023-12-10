@@ -68,30 +68,30 @@ async function expiryTime(expiry_minute_time) {
   return expiry_time_string;
 }
 
+//Gmail API mailer
 const oAuth2Client = new google.auth.OAuth2(
   process.env.GMAIL_CLIENT_ID,
   process.env.GMAIL_CLIENT_SECRET,
   process.env.REDIRECT_URI
 );
 oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
-
-//Gmail API mailer
 async function sendMail(email, htmlFormate, subject, cc, bcc) {
   try {
+    // await sleep(3000);
     const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
     const transport = nodemailer.createTransport({
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "dhaval@acedataanalytics.com",
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
+        user: "info.cypersoft@gmail.com",
+        clientId: process.env.GMAIL_CLIENT_ID,
+        clientSecret: process.env.GMAIL_CLIENT_SECRET,
         refreshToken: process.env.REFRESH_TOKEN,
         accessToken: ACCESS_TOKEN,
       },
     });
     const mailOptions = {
-      from: `"Dhaval" <dhaval@acedataanalytics.com>`,
+      from: `"Cypers" <info.cypersoft@gmail.com>`,
       to: email, //emailTo
       subject: subject,
       html: htmlFormate,
@@ -124,7 +124,6 @@ async function sendMail(email, htmlFormate, subject, cc, bcc) {
     };
   }
 }
-// sendMail("dhavaldubariya35@gmail.com", "<h1>123456</h1>", "Hello");
 // check recaptcha
 async function recaptcha(reCaptchaCode) {
   var recaptchaReq = sync_request(
@@ -221,7 +220,15 @@ const changeLogDetailsLib = async (obj) => {
   console.log(obj);
   const date = new Date();
   var fieldArr = [
-    { field: "ip_address", value: obj.ipAddress },
+    {
+      field: "ip_address",
+      value:
+        obj.ipAddress == undefined ||
+        obj.ipAddress == null ||
+        obj.ipAddress == ""
+          ? "Google Sign In"
+          : obj.ipAddress,
+    },
     { field: "timestamp", value: await formatDateTimeLib(date) },
     { field: "user_id", value: obj.userId },
   ];
@@ -264,6 +271,11 @@ const InsertQuery = async (table_name, coulmn_name, value) => {
   );
   return { status: insertedData.status };
 };
+
+async function sleep(delay) {
+  var start = new Date().getTime();
+  while (new Date().getTime() < start + delay);
+}
 
 module.exports = {
   makeid: makeid,
