@@ -40,13 +40,8 @@ const getUserDetailModule = async (req) => {
 
 // User Login (/users/login)
 const sendOtpForLoginModule = async (req) => {
-  var userId = req.user_id;
+  // var userId = req.user_id;
   var mobileNumber = req.body.mobile;
-  console.log(
-    userId,
-    ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::;"
-  );
-
   if (
     mobileNumber == undefined ||
     mobileNumber == "" ||
@@ -59,13 +54,14 @@ const sendOtpForLoginModule = async (req) => {
     };
   }
 
-  const userDetail = await userDb.getUserDetailbyUserId(userId);
+  const userDetail = await userDb.getUserDetailbyMobileNumber(mobileNumber);
   if (userDetail.status == false || userDetail.data.length == 0) {
     return {
       status: false,
       error: constants.requestMessages.ERR_USER_NOT_FOUND,
     };
   }
+  var userId = userDetail.data[0].user_id;
   mobileNumber = mobileNumber.trim();
   var timestamp = await libFunction.formatDateTimeLib(new Date());
   var changeLogId = await libFunction.changeLogDetailsLib({
@@ -105,7 +101,7 @@ const sendOtpForLoginModule = async (req) => {
 
 const verifyOtpForLoginModule = async (req) => {
   var mobileNumber = req.body.mobile;
-  var userId = req.user_id;
+  var userId = null; //req.user_id;
   var otp = req.body.otp;
   if (
     (mobileNumber == undefined ||
@@ -122,7 +118,7 @@ const verifyOtpForLoginModule = async (req) => {
     };
   }
 
-  var userDetail = await userDb.getUserDetailbyUserId(userId);
+  var userDetail = await userDb.getUserDetailbyMobileNumber(mobileNumber);
 
   if (userDetail.data.length == 0 || userDetail.data.length == 0) {
     return {

@@ -12,11 +12,11 @@ const { error } = require("console");
 const googleSignUpModule = async (req) => {
   var clientID = process.env.CLIENT_ID;
   var redirectUri;
-  console.log(process.env.FILEMASTER_TESTMODE);
-  if (process.env.FILEMASTER_TESTMODE == "false") {
-    redirectUri = "http://192.203.163.33:4001/api/auth/google/callback";
+  console.log(process.env.CARNYAM_TESTMODE);
+  if (process.env.CARNYAM_TESTMODE == "false") {
+    redirectUri = "http://localhost:4001/api/auth/google/callback";
   } else {
-    redirectUri = "https://api.filemaster.io/api/auth/google/callback";
+    redirectUri = "http://193.203.163.33:4001/api/auth/google/callback";
   }
   var googleloginUrl = process.env.GOOGLE_LOGIN_URL;
   var code = null;
@@ -147,33 +147,41 @@ const signUpWithPasswordModule = async (req, res) => {
 
     await authDb.createAuthOtp(otp, changeLogId, true, expireTime);
 
-    const token = (await libFunction.makeid(64)) + new Date().getTime();
-    var expireAccessTokenTime = await libFunction.formatDateLib(
-      await libFunction.getExpireTimeStamp(true)
+    var userDetailWithAceeToken = await createAcessTokenWithUserDetail(
+      result.data[0].user_id
     );
-    const userAccessToken = await authDb.creaetUserAccessToken(
-      result.data[0].user_id,
-      token,
-      timestamp,
-      expireAccessTokenTime
-    );
-
-    if (userAccessToken.status == false) {
-      return {
-        status: false,
-        error: constant.requestMessages.ERR_WHILE_EXCUTING_MYSQL_QUERY,
-      };
-    }
-
-    var userDetail = await userModule.getUserDetailModule({
-      user_id: result.data[0].user_id,
-    });
-    userDetail.data["accessToken"] = token;
-    return userDetail;
+    return userDetailWithAceeToken;
   } catch (error) {
     throw error;
   }
 };
+
+async function createAcessTokenWithUserDetail(userId) {
+  var timestamp = await libFunction.formatDateTimeLib(new Date());
+  const token = (await libFunction.makeid(64)) + new Date().getTime();
+  var expireAccessTokenTime = await libFunction.formatDateLib(
+    await libFunction.getExpireTimeStamp(true)
+  );
+  const userAccessToken = await authDb.creaetUserAccessToken(
+    userId,
+    token,
+    timestamp,
+    expireAccessTokenTime
+  );
+
+  if (userAccessToken.status == false) {
+    return {
+      status: false,
+      error: constant.requestMessages.ERR_WHILE_EXCUTING_MYSQL_QUERY,
+    };
+  }
+
+  var userDetail = await userModule.getUserDetailModule({
+    user_id: userId,
+  });
+  userDetail.data["accessToken"] = token;
+  return userDetail;
+}
 
 const signInWithPasswordModule = async (req) => {
   try {
@@ -205,7 +213,11 @@ const googleCallBackModule = async (req) => {
     var scope = req.query.scope;
     var authuser = req.query.authuser;
     var hd = req.query.hd == undefined ? null : req.query.hd;
-    var redirectUri = "http://192.203.163.33:4001/api/auth/google/callback";
+    if (process.env.CARNYAM_TESTMODE == "false") {
+      redirectUri = "http://localhost:4001/api/auth/google/callback";
+    } else {
+      redirectUri = "http://193.203.163.33:4001/api/auth/google/callback";
+    }
     var timestamp = await libFunction.formatDateTimeLib(new Date());
     if (code == undefined || code == "" || code == null) {
       return {
@@ -284,20 +296,37 @@ const googleCallBackModule = async (req) => {
       __dirname,
       `../../../public/${firstName}_${lastName}_${new Date().getTime()}.png`
     );
-    await libFunction.downloadImage(userImage, imagePath); // Image Download Sucess
 
-    var userDetail = await signUpWithPasswordModule({
-      body: {
-        user_name: `${firstName} ${lastName}`,
-        user_email: `${email}`,
-        password: null,
-        mobile: null,
-        gender_id: null,
-        storage_id: null,
-        google_flag: true,
-      },
-    });
-    return userDetail;
+    var userDetailByEmail = await authDb.getUserByEmailId(email);
+
+    if (userDetailByEmail.status == false) {
+      return {
+        status: false,
+        error: constant.requestMessages.ERR_SOMTHIN_WENT_WRONG,
+      };
+    }
+
+    if (userDetailByEmail.data.length == 0) {
+      await libFunction.downloadImage(userImage, imagePath); // Image Download Sucess
+
+      var userDetail = await signUpWithPasswordModule({
+        body: {
+          user_name: `${firstName} ${lastName}`,
+          user_email: `${email}`,
+          password: null,
+          mobile: null,
+          gender_id: null,
+          storage_id: null,
+          google_flag: true,
+        },
+      });
+      return userDetail;
+    } else {
+      var getUserDetail = createAcessTokenWithUserDetail(
+        userDetailByEmail.data[0].user_id
+      );
+      return getUserDetail;
+    }
   } catch (e) {
     console.log(e);
     return {
