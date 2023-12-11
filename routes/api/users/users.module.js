@@ -5,6 +5,7 @@ const userDb = require("./users.db");
 var path = require("path");
 const constants = require("../../../helpers/consts");
 const authDb = require("../auth/auth.db");
+const libAuth = require("../../../helpers/libAuth");
 // User Detail (/users/me)
 const getUserDetailModule = async (req) => {
   var userId = req.user_id;
@@ -208,7 +209,11 @@ const verifyOtpForLoginModule = async (req) => {
       error: constants.requestMessages.ERR_SOMTHIN_WENT_WRONG,
     };
   }
-  var userDetail = await getUserDetailModule(req);
+  var token = await libAuth.createAcessTokenWithUserDetail(userId);
+  var userDetail = await getUserDetailModule({
+    user_id: userId,
+  });
+  userDetail.data["accessToken"] = token;
   return userDetail;
 };
 
