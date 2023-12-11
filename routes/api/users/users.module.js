@@ -154,7 +154,7 @@ const verifyOtpForLoginModule = async (req) => {
       error: constants.requestMessages.ERR_USER_NOT_FOUND,
     };
   }
-
+  userId = userDetail.data[0].user_id;
   var getLastOtp = await userDb.getVerifiedOtp(userId);
 
   if (getLastOtp.status == false || getLastOtp.data.length == 0) {
@@ -208,8 +208,8 @@ const verifyOtpForLoginModule = async (req) => {
       error: constants.requestMessages.ERR_SOMTHIN_WENT_WRONG,
     };
   }
-
-  return { status: true, data: "OTP Verify Successfully" };
+  var userDetail = await getUserDetailModule(req);
+  return userDetail;
 };
 
 const updateUserModule = async (req) => {
