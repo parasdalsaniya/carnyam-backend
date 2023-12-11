@@ -172,6 +172,18 @@ const verifyOtpForLoginModule = async (req) => {
     };
   }
   var timestamp = await libFunction.formatDateTimeLib(new Date());
+  var expireTime = await libFunction.formatDateTimeLib(
+    new Date(getLastOtp.data[0].expiry_time)
+  );
+  console.log(new Date(timestamp).getTime(), new Date(expireTime).getTime());
+  if (new Date(timestamp).getTime() > new Date(expireTime).getTime()) {
+    return {
+      status: false,
+      error: constants.requestMessages.ERR_OTP_EXPIRE,
+    };
+  }
+
+  var timestamp = await libFunction.formatDateTimeLib(new Date());
   var changeLogId = await libFunction.changeLogDetailsLib({
     userId: userId,
     ipAddress: req.ip,

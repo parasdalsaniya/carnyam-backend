@@ -22,4 +22,7 @@ module.exports.requestMessages = {
   ERR_INVALID_OTP: {
     message: "Invalid OTP",
   },
+  ERR_OTP_EXPIRE: {
+    message: "OTP Expire",
+  },
 };
