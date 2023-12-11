@@ -27,8 +27,8 @@ const getVerifiedOtp = async (userId) => {
   var sql = `select * from otp_auth
   join change_log
   on change_log.change_log_id = otp_auth.change_log_id
-  where user_id = '${userId}'
-  order by expiry_time desc
+  where user_id = '${userId}' and history_id is null and (flag_verified is null or flag_verified = false )
+  order by otp_auth_id desc
   LIMIT 1`;
   var result = await crud.executeQuery(sql);
   return result;
