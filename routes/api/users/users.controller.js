@@ -12,7 +12,15 @@ const sendOtpForLoginController = async (req, res) => {
 
 const verifyOtpForLoginController = async (req, res) => {
   const result = await userModule.verifyOtpForLoginModule(req);
-  return res.send(result);
+  if (result.status == true) {
+    res.setHeader(
+      "Set-Cookie",
+      `cn-ssid=${result.data.accessToken}; Domain=${process.env.COOKIE_DOMAIN};Secure;Path=/;HttpOnly;SameSite=None;`
+    );
+    return res.send(result);
+  } else {
+    return res.send(result);
+  }
 };
 
 const updateUserController = async (req, res) => {

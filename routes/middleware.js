@@ -25,7 +25,7 @@ const checkAccessToken = async (req, res, next) => {
   let currentTimeStamp = `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  const sql = `select user_id from user_access_token where user_access_token_value = '${accessToken}' and user_access_token_expiry_time >= '${currentTimeStamp}'and user_access_token_flag_logout=false `;
+  const sql = `select user_id from user_access_token where user_access_token_value = '${accessToken}' and user_access_token_flag_logout=false `;
   const getUserIdByATokenDB = await crud.executeQuery(sql);
   console.log(getUserIdByATokenDB);
   console.log(getUserIdByATokenDB);
