@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "braided-trees-406905",
+  "private_key_id": "56cbf0b82016f3edc37a90423e5dcd1b8d215533",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCKp3DI4woBu4PI\nk6wBEg9s9oQ29r6ksbrera71PwEA8zlCQp5veNqTpTiSOd7gBZUDOIkI6PLdS8RV\nzo+qAfSMMW71czJGnEEjCl/Y+V2ygKCqCxk5t0F7LipDEF16McMDqCvcXNMKIDDo\ntD3JAfdEGDYKOdhiAApOVLB36GxZ4AvzkTBK3IZ/GZ8TNsyOPi42o8oYKUYqfRNE\nvHVUb9kSCdgJzNw8wMMBjnzfktFLalQht3HfdXn6W9qQO4m9CdiYP6SWLpzJhXis\nLaQ/WLVvcX8zs4QYTUnQFjll/Btcphh38e8tf1tScQDAsZlsAaPs6L0+zodWYYmP\nCPGdYLx/AgMBAAECggEAQeoazG1efvdZTVuie/nNeoPw075WYC4bw6t2zqDuhbia\n4lyQPDcMVf9IFv/K693LerYAM0um1TwlMJObqXr3ekQv1yC16Gp07scKTLgzal4K\nwvu2uMDdMMWAEtSvU51fc5gZjc9VBm3KQn4ZFztHhMgrvI3GR8R0IcvR/pbwF4Mf\nl0OIvzxMW7TO7ZKT72HlyV5zaXE71wDI3w/gyQpoyOh7/zQHBu1HBUiXtD8AaNxe\nv/uGy5y6B9TB3KYA2iJ1tj4RMY5x2PCqn4e5caIYgdHQcOW9qmeMcDgpXquavbxG\nmjLuCfNyEH+vrI9ljjOvGC8UKbwUCfQBcEAdr2H1kQKBgQC+Zen6CBZbGf8B19HK\nr7ihYbeUvoSpkcIOSc7Mpz43YTeCdbvVza4GWHGiT/oCIEY+xesJWWFNpi5mPMo2\nruGt6802jThqiy0LDcXnQE+ycSiEwoiWPdnDrl9vhAuLjN2gz5gxm//MKxdi5ujB\nJbNaPPFEjNXQbKpi2AFCsmQkDwKBgQC6bXAgSWm2eBqjQpJp3bfB/hdcaOq8b1hq\nCU5INRH3HmD1gWXK13DrPL98XlCOpqVmNq005ndi5XxsyJ20IMUE9OWRpVPCGMpK\n6tsk5CdJF4hl2/LAAIr1rnFyJghtpsOx25Yg1koz9aC7ZHKHrcp6nI+pO9C9zGSr\n4RM+skKwkQKBgQCNYmye6MaBHArLOZJmKpq17DRA1kD5Em3B4nkYa9C9mwl3bSnw\nmG1z9NVdLHqAfarsDlh8dszUtmSaMuYOOUsItaOLsM6F/5eRL8cX9B+6aGEoRLTc\nrE07DA9+ZdWU6SPiuIVRwX/wAse4/7MzSmWmyr52owZbYXYdND2rY4ENbQKBgDQU\nRnJ+j62Nt8NL4aL5cVAcL2J9XLXvVP+qQdgiGzaxodxznYAg10af3c5cepyfKS14\nsMJKb6eM/ElXcdbUILXVxBv/13oterWbDkUsB11/2Xa7DwFcJXWkmcSNo2UeZSTW\ndwYNVwVU5OX0lZoZjqrZ+bgJIbMj2iu54KpvGfpBAoGBALqBBEuLEAFPJyQKABV7\nu0tt2jAPcgm6+MiptEa/XQBTkP2wWwmf9u0WQXmUrYCAJDJy+cQUitzttI8Dge7V\n6Vvc7bwfqSttvSZxcpt+WaATcNhOiePdI+OmrcSdsEftHeH/U19WCGJzbUCil7AC\nZ0mTi6PNFfBKMskfaxIHhO5Y\n-----END PRIVATE KEY-----\n",
+  "client_email": "carnyam@braided-trees-406905.iam.gserviceaccount.com",
+  "client_id": "114169158211355689664",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/carnyam%40braided-trees-406905.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

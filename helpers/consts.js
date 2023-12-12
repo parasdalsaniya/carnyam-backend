@@ -25,4 +25,7 @@ module.exports.requestMessages = {
   ERR_OTP_EXPIRE: {
     message: "OTP Expire",
   },
+  ERR_WHILE_UPLODING_FILE: {
+    message: "Error While Uploading File",
+  },
 };
