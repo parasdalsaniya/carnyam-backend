@@ -253,7 +253,7 @@ const deleteFileModule = async (body) => {
         ipAddress: body.ip,
       };
 
-      const changeLogId = await LibFunction.changeLogDetailsLib(obj);
+      changeLogId = await LibFunction.changeLogDetailsLib(obj);
     } else {
       changeLogId = undefined;
     }
