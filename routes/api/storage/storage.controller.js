@@ -39,7 +39,7 @@ const deleteFileController = async (req, res) => {
   let reqBody = req.body;
   reqBody.query = req.query;
   reqBody.ip = req.ip;
-
+  reqBody["user_id"] = req.user_id;
   const result = await storageModule.deleteFileModule(reqBody);
   return res.send(result);
 };
