@@ -1,9 +1,12 @@
 var express = require("express");
 var router = express.Router();
 require("dotenv").config();
+var constant = require("../helpers/consts");
 
 /* GET home page. */
 router.use("/api/auth", require("./api/auth"));
+router.use("/api/users", require("./api/users"));
+router.use("/api/storage", require("./api/storage"));
 
 router.use("**", (req, res) => {
   return res.send({

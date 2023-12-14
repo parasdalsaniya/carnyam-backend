@@ -9,13 +9,19 @@ const createUser = async ({
   profileImage,
   timestamp,
   authId,
+  flagEmailVerified,
 }) => {
   const auth = authId ? `'${authId}'` : null;
   password = password == null ? null : `'${password}'`;
   profileImage = profileImage == null ? null : `'${profileImage}'`;
+  gender =
+    gender == null || gender == undefined || gender == ""
+      ? null
+      : `'${gender}'`;
+  mobile = mobile == null ? null : `'${mobile}'`;
   var sql = `INSERT INTO public."user"(
-    user_name, user_email, user_password, user_mobile_number, gender_id, storage_id, "timestamp", oauth_id)
-    VALUES ('${name}', '${email}', ${password}, '${mobile}', '${gender}', ${profileImage}, '${timestamp}', ${auth}) returning *;`;
+    user_name, user_email, user_password, user_mobile_number, gender_id, storage_id, "timestamp", oauth_id,flag_email_verified)
+    VALUES ('${name}', '${email}', ${password}, ${mobile},${gender}, ${profileImage}, '${timestamp}', ${auth},${flagEmailVerified}) returning *;`;
   var result = await crud.executeQuery(sql);
   return result;
 };
@@ -97,8 +103,25 @@ const updateUser = async ({ email, mobile }, updatedFields) => {
 
 const createAuthOtp = async (otp, changeLogId, flagRider, expireTime) => {
   var sql = `INSERT INTO otp_auth(
-    otp_auth_value, "change_log_Id", flag_ride, expiry_time)
+    otp_auth_value, "change_log_id", flag_ride, expiry_time)
     VALUES ('${otp}','${changeLogId}','${flagRider}','${expireTime}');`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const creaetUserAccessToken = async (
+  userId,
+  accessToken,
+  timestamp,
+  expiryTime
+) => {
+  var sql = `insert into user_access_token (user_id,user_access_token_value,user_access_token_flag_logout,timestamp,user_access_token_expiry_time) values (${userId},'${accessToken}',false,'${timestamp}','${expiryTime}')`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const getUserByEmailId = async (email) => {
+  var sql = `select * from public.user where user_email = '${email}' and history_id is null and flag_deleted = false `;
   var result = await crud.executeQuery(sql);
   return result;
 };
@@ -111,4 +134,6 @@ module.exports = {
   getUser,
   updateUser,
   createAuthOtp,
+  creaetUserAccessToken,
+  getUserByEmailId,
 };

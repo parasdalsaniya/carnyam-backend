@@ -6,15 +6,17 @@ const authDb = require("./auth.db");
 var syncRequest = require("sync-request");
 var constant = require("../../../helpers/consts");
 var path = require("path");
+var userModule = require("../users/users.module");
+const { error } = require("console");
 // var data = require("../../../public");
 const googleSignUpModule = async (req) => {
   var clientID = process.env.CLIENT_ID;
   var redirectUri;
-  console.log(process.env.FILEMASTER_TESTMODE);
-  if (process.env.FILEMASTER_TESTMODE == "false") {
+  console.log(process.env.CARNYAM_TESTMODE);
+  if (process.env.CARNYAM_TESTMODE == "false") {
     redirectUri = "http://localhost:4001/api/auth/google/callback";
   } else {
-    redirectUri = "https://api.filemaster.io/api/auth/google/callback";
+    redirectUri = "http://193.203.163.33:4001/api/auth/google/callback";
   }
   var googleloginUrl = process.env.GOOGLE_LOGIN_URL;
   var code = null;
@@ -47,7 +49,7 @@ const signUpWithPasswordModule = async (req, res) => {
     var gender = req.body.gender_id;
     var storageId = req.body.storage_id;
     var googleFlag = req.body.google_flag;
-
+    var flagEmailVerified = false;
     if (password == undefined || password == "" || password == null) {
       password == null;
     }
@@ -57,36 +59,59 @@ const signUpWithPasswordModule = async (req, res) => {
       userName == "" ||
       userEmail == undefined ||
       userEmail == "" ||
-      userEmail == null ||
-      userMobile == "" ||
-      userMobile == undefined ||
-      userMobile == null
+      userEmail == null
     ) {
-      throw new Error("Invalid Body");
+      return {
+        status: false,
+        error: constant.requestMessages.ERR_INVALID_BODY,
+      };
     }
 
     if (googleFlag == false || googleFlag == undefined) {
       if (userMobile == "" || userMobile == undefined || userMobile == null) {
-        throw new Error("Invalid Body");
+        return {
+          status: false,
+          error: constant.requestMessages.ERR_INVALID_BODY,
+        };
       }
-
-      const userByEmail = await authDb.getUser({
+      const userByMobileNumber = await authDb.getUser({
         user_mobile_number: userMobile,
       });
 
-      if (userByEmail.data.length)
-        throw new Error("User is already register with mobile number.");
+      if (userByMobileNumber.data.length != 0) {
+        // if (userByMobileNumber.data[0].flag_mobile_verified == true) {
+        return {
+          status: false,
+          error: {
+            message: "User is already register with mobile number.",
+          },
+        };
+        // }
+      }
+    } else {
+      flagEmailVerified = true;
     }
 
-    const userByMobile = await authDb.getUser({ user_email: userEmail });
-    if (userByMobile.data.length)
-      throw new Error("User is already register with email.");
+    const userByEmailId = await authDb.getUser({ user_email: userEmail });
+    if (userByEmailId.data.length != 0) {
+      // if (userByEmailId.data[0].flag_email_verified == true) {
+      return {
+        status: false,
+        error: {
+          message: "User is already register with email.",
+        },
+      };
+      // }
+    }
 
     const timestamp = await libFunction.formatDateTimeLib(new Date());
     var hashedPassword = null;
     if (password != null) {
       hashedPassword = await bcrypt.hash(password, 12);
     }
+    gender =
+      gender == null || gender == undefined || gender == "" ? null : gender;
+
     const result = await authDb.createUser({
       name: userName,
       email: userEmail,
@@ -95,17 +120,21 @@ const signUpWithPasswordModule = async (req, res) => {
       gender,
       profileImage: storageId,
       timestamp,
+      flagEmailVerified: flagEmailVerified,
     });
-    if (result.status === false) throw new Error("user not creted");
+    if (result.status === false) {
+      return {
+        status: false,
+        error: constant.requestMessages.ERR_SOMTHIN_WENT_WRONG,
+      };
+    }
 
     const otp = await libFunction.generateOTP(6);
-    // await libFunction.sendMail(
-    //   userEmail,
-    //   `<h1>${otp}</h1>`,
-    //   "Verification Email",
-    //   [],
-    //   []
-    // );
+    await libFunction.sendMail(
+      userEmail,
+      `<h1>${otp}</h1>`,
+      "Verification Email"
+    );
 
     var obj = {
       userId: result.data[0].user_id,
@@ -116,18 +145,43 @@ const signUpWithPasswordModule = async (req, res) => {
 
     var expireTime = await libFunction.expiryTimeInMin(2);
 
-    var creaetOtp = await authDb.createAuthOtp(
-      otp,
-      changeLogId,
-      true,
-      expireTime
-    );
+    await authDb.createAuthOtp(otp, changeLogId, true, expireTime);
 
-    return creaetOtp;
+    var userDetailWithAceeToken = await createAcessTokenWithUserDetail(
+      result.data[0].user_id
+    );
+    return userDetailWithAceeToken;
   } catch (error) {
     throw error;
   }
 };
+
+async function createAcessTokenWithUserDetail(userId) {
+  var timestamp = await libFunction.formatDateTimeLib(new Date());
+  const token = (await libFunction.makeid(64)) + new Date().getTime();
+  var expireAccessTokenTime = await libFunction.formatDateLib(
+    await libFunction.getExpireTimeStamp(true)
+  );
+  const userAccessToken = await authDb.creaetUserAccessToken(
+    userId,
+    token,
+    timestamp,
+    expireAccessTokenTime
+  );
+
+  if (userAccessToken.status == false) {
+    return {
+      status: false,
+      error: constant.requestMessages.ERR_WHILE_EXCUTING_MYSQL_QUERY,
+    };
+  }
+
+  var userDetail = await userModule.getUserDetailModule({
+    user_id: userId,
+  });
+  userDetail.data["accessToken"] = token;
+  return userDetail;
+}
 
 const signInWithPasswordModule = async (req) => {
   try {
@@ -159,7 +213,11 @@ const googleCallBackModule = async (req) => {
     var scope = req.query.scope;
     var authuser = req.query.authuser;
     var hd = req.query.hd == undefined ? null : req.query.hd;
-    var redirectUri = "http://localhost:4001/api/auth/google/callback";
+    if (process.env.CARNYAM_TESTMODE == "false") {
+      redirectUri = "http://localhost:4001/api/auth/google/callback";
+    } else {
+      redirectUri = "http://193.203.163.33:4001/api/auth/google/callback";
+    }
     var timestamp = await libFunction.formatDateTimeLib(new Date());
     if (code == undefined || code == "" || code == null) {
       return {
@@ -176,7 +234,7 @@ const googleCallBackModule = async (req) => {
         error: constant.requestMessages.ERR_SOMTHIN_WENT_WRONG,
       };
     }
-    ``;
+
     const updateStateCode = await authDb.updateStateToken(
       stateToken.data[0].outbound_api_app_auth_log_id,
       code,
@@ -238,9 +296,37 @@ const googleCallBackModule = async (req) => {
       __dirname,
       `../../../public/${firstName}_${lastName}_${new Date().getTime()}.png`
     );
-    await libFunction.downloadImage(userImage, imagePath); // Image Download Sucess
 
-    return data;
+    var userDetailByEmail = await authDb.getUserByEmailId(email);
+
+    if (userDetailByEmail.status == false) {
+      return {
+        status: false,
+        error: constant.requestMessages.ERR_SOMTHIN_WENT_WRONG,
+      };
+    }
+
+    if (userDetailByEmail.data.length == 0) {
+      await libFunction.downloadImage(userImage, imagePath); // Image Download Sucess
+
+      var userDetail = await signUpWithPasswordModule({
+        body: {
+          user_name: `${firstName} ${lastName}`,
+          user_email: `${email}`,
+          password: null,
+          mobile: null,
+          gender_id: null,
+          storage_id: null,
+          google_flag: true,
+        },
+      });
+      return userDetail;
+    } else {
+      var getUserDetail = createAcessTokenWithUserDetail(
+        userDetailByEmail.data[0].user_id
+      );
+      return getUserDetail;
+    }
   } catch (e) {
     console.log(e);
     return {
