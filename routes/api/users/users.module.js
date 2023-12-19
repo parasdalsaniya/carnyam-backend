@@ -6,6 +6,7 @@ var path = require("path");
 const constants = require("../../../helpers/consts");
 const authDb = require("../auth/auth.db");
 const libAuth = require("../../../helpers/libAuth");
+const libStorage = require("../../../helpers/libStorage");
 // User Detail (/users/me)
 const getUserDetailModule = async (req) => {
   var userId = req.user_id;
@@ -336,6 +337,17 @@ const updateUserModule = async (req) => {
   }
 
   if (storageId != userDetail.data[0].storage_id) {
+    if (storageId != null) {
+      var googleStorage = await libStorage.getImageGoogleStorageFile(storageId);
+
+      if (googleStorage.status == false || googleStorage.data.length == 0) {
+        return {
+          status: false,
+          error: constants.requestMessages.ERR_INVALID_FILE_TYPE,
+        };
+      }
+      await libStorage.updateFlagSavedAndPublic(storageId, true);
+    }
     flagUpdateUSerDetail = true;
   }
 

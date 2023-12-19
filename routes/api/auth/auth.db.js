@@ -126,6 +126,29 @@ const getUserByEmailId = async (email) => {
   return result;
 };
 
+const creaetDriverAccessToken = async (
+  userId,
+  accessToken,
+  timestamp,
+  expiryTime
+) => {
+  var sql = `insert into user_access_token (user_id,user_access_token_value,user_access_token_flag_logout,timestamp,user_access_token_expiry_time,flag_driver) values (${userId},'${accessToken}',false,'${timestamp}','${expiryTime}',true)`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const getVerifiedOtp = async (driverId) => {
+  var sql = `select * from otp_auth
+  join change_log
+  on change_log.change_log_id = otp_auth.change_log_id
+  where user_id = '${driverId}' and history_id is null and (flag_verified is null or flag_verified = false )
+  and flag_ride = false
+  order by otp_auth_id desc
+  LIMIT 1`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
 module.exports = {
   authAddAuthLogDB,
   getOutboundApiAppAuthLogByStateToken,
@@ -136,4 +159,6 @@ module.exports = {
   createAuthOtp,
   creaetUserAccessToken,
   getUserByEmailId,
+  creaetDriverAccessToken,
+  getVerifiedOtp,
 };

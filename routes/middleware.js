@@ -38,7 +38,11 @@ const checkAccessToken = async (req, res, next) => {
       },
     });
   }
-  req.user_id = getUserIdByATokenDB.data[0].user_id;
+  if (getUserIdByATokenDB.data[0].flag_driver == false) {
+    req.user_id = getUserIdByATokenDB.data[0].user_id;
+  } else {
+    req.driver_id = getUserIdByATokenDB.data[0].user_id;
+  }
   req.access_token_data = accessToken;
   next();
 };

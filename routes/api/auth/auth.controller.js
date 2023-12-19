@@ -32,9 +32,15 @@ const googleCallBackController = async (req, res) => {
   return res.send(result);
 };
 
+const creaetInsertQueryController = async (req, res) => {
+  const result = await authModule.creaetInsertQueryModule(req);
+  return res.send(result);
+};
+
 module.exports = {
   googleSignUpController,
   signUpWithPassword,
   signInWithPassword,
   googleCallBackController,
+  creaetInsertQueryController,
 };
