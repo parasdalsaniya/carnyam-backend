@@ -8,6 +8,7 @@ var constant = require("../../../helpers/consts");
 var path = require("path");
 var userModule = require("../users/users.module");
 const { error } = require("console");
+const crud = require("../../crud");
 // var data = require("../../../public");
 const googleSignUpModule = async (req) => {
   var clientID = process.env.CLIENT_ID;
@@ -335,9 +336,24 @@ const googleCallBackModule = async (req) => {
     };
   }
 };
+
+const creaetInsertQueryModule = async (req) => {
+  var tblColumn = await crud.executeQuery(
+    `SELECT json_object_keys(to_json(json_populate_record(NULL::${req.query.table_name}, '{}'::JSON)))`
+  );
+  // console.log(tblColumn);
+  if (tblColumn.data.length != 0) {
+    return tblColumn.data.map((x) => {
+      return { field: x.json_object_keys, value: null };
+    });
+  }
+  return { status: false };
+};
+
 module.exports = {
   googleSignUpModule,
   signUpWithPasswordModule,
   signInWithPasswordModule,
   googleCallBackModule,
+  creaetInsertQueryModule,
 };

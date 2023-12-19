@@ -220,6 +220,33 @@ const updateFlagSavedAndPublic = async (storageId, flagPublic) => {
   return result;
 };
 
+const getImageGoogleStorageFile = async (fileId) => {
+  var sql = `select * from google_storage where flag_deleted = false and history_id is null and google_storage_id in ('${fileId}') and goolge_storage_file_type in ('.jpeg','.jpg','.png','.gif')`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const getGoogleStorageById = async (fileId) => {
+  var sql = `select * from google_storage where flag_deleted = false and history_id is null and google_storage_id in ('${fileId}')`;
+  var result = await crud.executeQuery(sql);
+  return result;
+};
+
+const fileTypeChack = async (storageId, googleStorage, fileTypeArray) => {
+  var googleStorage = googleStorage.filter(
+    (x) => x.google_storage_id == storageId
+  );
+  if (googleStorage.length == 0) {
+    return false;
+  }
+  if (
+    fileTypeArray.includes(googleStorage[0].goolge_storage_file_type) == true
+  ) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = {
   googleFileUpload,
   uploadGoogleFileToPublicBucket,
@@ -229,4 +256,7 @@ module.exports = {
   FileDelete,
   updateFlagSaved,
   updateFlagSavedAndPublic,
+  getImageGoogleStorageFile,
+  getGoogleStorageById,
+  fileTypeChack,
 };

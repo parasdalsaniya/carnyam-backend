@@ -6,6 +6,7 @@ const https = require("https");
 const dotenv = require("dotenv").config();
 var nodemailer = require("nodemailer");
 var crud = require("../routes/crud");
+const { constants } = require("buffer");
 //Crete Access token
 async function makeid(length) {
   var result = "";
@@ -277,6 +278,61 @@ async function sleep(delay) {
   while (new Date().getTime() < start + delay);
 }
 
+const driverLogDetailsLib = async (obj) => {
+  console.log(obj);
+  const date = new Date();
+  var fieldArr = [
+    {
+      field: "ip_address",
+      value:
+        obj.ipAddress == undefined ||
+        obj.ipAddress == null ||
+        obj.ipAddress == ""
+          ? "Google Sign In"
+          : obj.ipAddress,
+    },
+    { field: "timestamp", value: await formatDateTimeLib(date) },
+    { field: "driver_id", value: obj.driverId },
+  ];
+
+  if (obj.companyId)
+    fieldArr.push({ field: "company_id", value: obj.companyId });
+  const changeLogDetails = await crud.makeInsertQueryString(
+    "driver_log",
+    fieldArr,
+    ["driver_log_id", "timestamp"],
+    false
+  );
+
+  if (!changeLogDetails.status) {
+    return {
+      status: false,
+      error: "Error",
+    };
+  }
+  return changeLogDetails.data[0].driver_log_id;
+};
+
+const objValidator = async (array) => {
+  var result =
+    array
+      .map((x) => {
+        if (typeof x == "boolean") {
+          if (x == undefined) {
+            return true;
+          }
+        } else {
+          if (x == undefined || x == null || x == "") {
+            return true;
+          }
+        }
+      })
+      .filter((x) => x == true).length != 0
+      ? false
+      : true;
+  return result;
+};
+
 module.exports = {
   makeid: makeid,
   formatDateLib: formatDateLib,
@@ -291,4 +347,6 @@ module.exports = {
   sendMail: sendMail,
   changeLogDetailsLib: changeLogDetailsLib,
   InsertQuery: InsertQuery,
+  driverLogDetailsLib: driverLogDetailsLib,
+  objValidator: objValidator,
 };
