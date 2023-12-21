@@ -30,6 +30,20 @@ const checkAccessToken = async (req, res, next) => {
   console.log(getUserIdByATokenDB);
   console.log(getUserIdByATokenDB);
   if (getUserIdByATokenDB.data.length == 0) {
+    if (accessToken != process.env.PUBLIC_ACCETOKEN) {
+      return res.status(401).send({
+        status: false,
+        error: {
+          code: 401,
+          message: "Error invalid authentication found ...................",
+        },
+      });
+    } else {
+      req.driver_id = 622003;
+      next();
+      return;
+    }
+
     return res.status(401).send({
       status: false,
       error: {
@@ -46,6 +60,27 @@ const checkAccessToken = async (req, res, next) => {
   req.access_token_data = accessToken;
   next();
 };
+
+const publicAccessToken = async (req, res, next) => {
+  var authTokenHeader = req.cookies["cn-ssid"] || req.headers["authorization"];
+  if (authTokenHeader) authTokenHeader = authTokenHeader.replace("Bearer ", "");
+  var accessToken = authTokenHeader;
+  console.log(accessToken);
+  if (accessToken === undefined) {
+    console.log("There is no Token");
+    return res.status(401).send({
+      status: false,
+      error: {
+        code: 401,
+        message: "Error invalid authentication found ...................",
+      },
+    });
+  }
+  var date = new Date();
+
+  next();
+};
+
 module.exports = {
   checkAccessToken: checkAccessToken,
 };
