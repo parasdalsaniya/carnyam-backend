@@ -45,6 +45,7 @@ const getDriverProfileModule = async (req) => {
     driver_address: driverDetail.data[0].driver_address,
     city_id: driverDetail.data[0].city_id,
     vehicle_id: driverDetail.data[0].vehicle_id,
+    profile_image_id: driverDetail.data[0].driver_profile_id,
   };
 
   return { status: true, data: obj };
@@ -181,7 +182,8 @@ const createDriverProfileModule = async (req) => {
     refreshId,
     cityId,
     vehicleId,
-    timestamp
+    timestamp,
+    profileImageId
   );
 
   if (creaetDriver.status == false || creaetDriver.data.length == 0) {

@@ -8,7 +8,8 @@ const createDriverProfile = async (
   refreshId,
   cityId,
   vehicleId,
-  timestamp
+  timestamp,
+  profileImageId
 ) => {
   let fieldArr = [
     { field: "driver_name", value: driverName },
@@ -22,6 +23,7 @@ const createDriverProfile = async (
     { field: "change_log_id", value: null },
     { field: "timestamp", value: timestamp },
     { field: "refrence_id", value: refreshId },
+    { field: "driver_profile_id", value: profileImageId },
   ];
   console.log(JSON.stringify(fieldArr));
   var result = await crud.makeInsertQueryString("driver", fieldArr, true);
