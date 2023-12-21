@@ -17,7 +17,8 @@ const googleFileUpload = async (
   flagPublic,
   flagSaved,
   userId,
-  changeLogId
+  changeLogId,
+  flagRider
 ) => {
   try {
     const timestamp = await libfunction.formatDateLib(new Date());
@@ -37,8 +38,8 @@ const googleFileUpload = async (
 
     var createGoogleStorage =
       await crud.executeQuery(`INSERT INTO google_storage(
-        user_id, google_storage_original_file_name, google_storage_original_file_id, google_storage_file_self_link, google_storage_file_name, google_storage_object, google_storage_flag_public, goolge_storage_file_size, goolge_storage_file_type, "timestamp", flag_deleted,added_by_change_log_id,flag_saved)
-        VALUES ('${userId}','${originalFileName}','${upload_file[0].metadata.id}','${upload_file[0].metadata.selfLink}','${upload_file[0].metadata.name}','${fileObject}','${flagPublic}','${fileSize}','${fileType}','${timestamp}','false','${changeLogId}','${flagSaved}') returning *`);
+        user_id, google_storage_original_file_name, google_storage_original_file_id, google_storage_file_self_link, google_storage_file_name, google_storage_object, google_storage_flag_public, goolge_storage_file_size, goolge_storage_file_type, "timestamp", flag_deleted,added_by_change_log_id,flag_saved,flag_rider)
+        VALUES ('${userId}','${originalFileName}','${upload_file[0].metadata.id}','${upload_file[0].metadata.selfLink}','${upload_file[0].metadata.name}','${fileObject}','${flagPublic}','${fileSize}','${fileType}','${timestamp}','false','${changeLogId}','${flagSaved}','${flagRider}') returning *`);
 
     if (createGoogleStorage.status == false) {
       return {

@@ -138,8 +138,8 @@ const createDriverProfileModule = async (req) => {
   );
 
   if (
-    googleStorage.status == false ||
-    googleStorage.data.length != storageId.length
+    googleStorage.status == false
+    // googleStorage.data.length != storageId.length
   ) {
     return errorMessage(constants.requestMessages.ERR_SOMTHIN_WENT_WRONG);
   }
@@ -187,7 +187,12 @@ const createDriverProfileModule = async (req) => {
   if (creaetDriver.status == false || creaetDriver.data.length == 0) {
     return errorMessage();
   }
-
+  await crud.executeQuery(`update google_storage set flag_saved = true ,user_id = '${
+    creaetDriver.data[0].driver_id
+  }' , google_storage_flag_public = true 
+  where google_storage_id in ('${ImagePdfArray.join(
+    "','"
+  )}') and user_id = 622003 and history_id is null and flag_deleted = false`);
   var driverLogId = await libFunction.driverLogDetailsLib({
     driverId: creaetDriver.data[0].driver_id,
     ipAddress: req.ip,
