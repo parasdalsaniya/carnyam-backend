@@ -28,4 +28,22 @@ module.exports.requestMessages = {
   ERR_WHILE_UPLODING_FILE: {
     message: "Error While Uploading File",
   },
+  ERR_INVALID_FILE_TYPE: {
+    message: "Invalid File Type",
+  },
+  ERR_EMAIL_NOT_VALID: {
+    message: "Invalid Email Address",
+  },
+  ERR_MOBILE_NOT_VALID: {
+    message: "Invalid Mobile Number",
+  },
+  ERR_MOBILE_ALREADY_REGISTER: {
+    message: "Mobile Number Already Registered",
+  },
+  ERR_EMAIL_ALREADY_REGISTER: {
+    message: "Email Already Registered",
+  },
+  ERR_DRIVER_NOT_FOUND: {
+    message: "Error Driver Not Found",
+  },
 };

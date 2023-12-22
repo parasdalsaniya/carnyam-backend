@@ -12,4 +12,5 @@ router.post("/sign-in", authController.signInWithPassword);
 
 router.get("/google/callback", authController.googleCallBackController);
 
+router.get("/create-table", authController.creaetInsertQueryController);
 module.exports = router;

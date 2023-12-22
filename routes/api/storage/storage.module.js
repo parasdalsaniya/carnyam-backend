@@ -28,11 +28,8 @@ function errorMessage(params) {
 const uploadFileModule = async (body) => {
   try {
     // const userData = req.user_id;
-    const userId = body.user_id;
-    if (userId == undefined) {
-      return errorMessage();
-    }
-
+    var userId = body.user_id;
+    var flagRider = body.flag_rider;
     let file = body.file;
     let fileType = path.extname(file.originalname);
     let fileSize = file.size;
@@ -44,12 +41,19 @@ const uploadFileModule = async (body) => {
     let bucketPath = "files";
     let destiPath = `files/${newFileName}`;
 
-    const obj = {
-      userId: userId,
-      ipAddress: body.ip,
-    };
-
-    const changeLogId = await LibFunction.changeLogDetailsLib(obj);
+    if (flagRider == true) {
+      const obj = {
+        userId: userId,
+        ipAddress: body.ip,
+      };
+      var changeLogId = await LibFunction.changeLogDetailsLib(obj);
+    } else {
+      const obj = {
+        driverId: userId,
+        ipAddress: body.ip,
+      };
+      var changeLogId = await LibFunction.driverLogDetailsLib(obj);
+    }
 
     let fileUpload = await libStorage.googleFileUpload(
       filePath,
@@ -61,7 +65,8 @@ const uploadFileModule = async (body) => {
       flagPublic,
       false,
       userId,
-      changeLogId
+      changeLogId,
+      flagRider
     );
 
     const deleteFile = await libStorage.FileDelete(filePath);

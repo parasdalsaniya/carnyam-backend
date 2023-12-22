@@ -4,7 +4,13 @@ const uploadFileController = async (req, res) => {
   let reqBody = req.body;
   reqBody.ip = req.ip;
   reqBody.file = req.file;
-  reqBody["user_id"] = req.user_id;
+  if (req.user_id == undefined || req.user_id == "" || req.user_id == null) {
+    reqBody["flag_rider"] = false;
+    reqBody["user_id"] = req.driver_id;
+  } else {
+    reqBody["user_id"] = req.user_id;
+    reqBody["flag_rider"] = true;
+  }
 
   const result = await storageModule.uploadFileModule(reqBody);
   return res.send(result);
