@@ -1,0 +1,38 @@
+{
+    "sate": "Puducherry",
+    "state_url": "https://igod.gov.in/sg/PY/categories",
+    "district_name": [
+        {
+            "district_name": "Karaikal",
+            "district_url": "https://igod.gov.in/district/CDg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Karaikal Taluk",
+                "Thirunallar Taluk"
+            ]
+        },
+        {
+            "district_name": "Mahe",
+            "district_url": "https://igod.gov.in/district/CTg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Mahe Taluk"
+            ]
+        },
+        {
+            "district_name": "Pondicherry",
+            "district_url": "https://igod.gov.in/district/Cjg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Bahour Taluk",
+                "Ozhukarai Taluk",
+                "Puducherry Taluk",
+                "Villianur Taluk"
+            ]
+        },
+        {
+            "district_name": "Yanam",
+            "district_url": "https://igod.gov.in/district/Czg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Yanam Taluk"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "sate": "Andaman and Nicobar Islands",
+    "state_url": "https://igod.gov.in/sg/AN/categories",
+    "district_name": [
+        {
+            "district_name": "Nicobars",
+            "district_url": "https://igod.gov.in/district/czg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Car Nicobar",
+                "Great Nicobar",
+                "Nancowry"
+            ]
+        },
+        {
+            "district_name": "North And Middle Andaman",
+            "district_url": "https://igod.gov.in/district/xzg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Diglipur",
+                "Mayabunder",
+                "Rangat"
+            ]
+        },
+        {
+            "district_name": "South Andamans",
+            "district_url": "https://igod.gov.in/district/djg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Ferrargunj",
+                "Little Andaman",
+                "Port Blair"
+            ]
+        }
+    ]
+}

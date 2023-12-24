@@ -1,0 +1,352 @@
+{
+    "sate": "Gujarat",
+    "state_url": "https://igod.gov.in/sg/GJ/categories",
+    "district_name": [
+        {
+            "district_name": "Ahmadabad",
+            "district_url": "https://igod.gov.in/district/azg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Asarva",
+                "Bavla",
+                "Daskroi",
+                "Detroj-Rampura",
+                "Dhandhuka",
+                "Dholera",
+                "Dholka",
+                "Ghatlodiya",
+                "Mandal",
+                "Maninagar",
+                "Sabarmati",
+                "Sanand",
+                "Vatva",
+                "Vejalpur",
+                "Viramgam"
+            ]
+        },
+        {
+            "district_name": "Amreli",
+            "district_url": "https://igod.gov.in/district/bTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Amreli",
+                "Babra",
+                "Bagasara",
+                "Dhari",
+                "Jafrabad",
+                "Khambha",
+                "Kunkavav Vadia",
+                "Lathi",
+                "Lilia",
+                "Rajula",
+                "Savar Kundla"
+            ]
+        },
+        {
+            "district_name": "Anand",
+            "district_url": "https://igod.gov.in/district/cjg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Anand City",
+                "Anand Rural",
+                "Anklav",
+                "Borsad",
+                "Khambhat",
+                "Petlad",
+                "Sojitra",
+                "Tarapur",
+                "Umreth"
+            ]
+        },
+        {
+            "district_name": "Arvalli",
+            "district_url": "https://igod.gov.in/district/7zg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Bayad",
+                "Bhiloda",
+                "Dhansura",
+                "Malpur",
+                "Meghraj",
+                "Modasa"
+            ]
+        },
+        {
+            "district_name": "Banas Kantha",
+            "district_url": "https://igod.gov.in/district/6Tg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Amirgadh",
+                "Bhabhar",
+                "Danta",
+                "Dantiwada",
+                "Deesa",
+                "Deodar",
+                "Dhanera",
+                "Kankrej",
+                "Lakhani",
+                "Palanpur",
+                "Suigam",
+                "Tharad",
+                "Vadgam",
+                "Vav"
+            ]
+        },
+        {
+            "district_name": "Bharuch",
+            "district_url": "https://igod.gov.in/district/xTg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Amod",
+                "Anklesvar",
+                "Bharuch",
+                "Hansot",
+                "Jambusar",
+                "Jhagadia",
+                "Netrang",
+                "Vagra",
+                "Valia"
+            ]
+        },
+        {
+            "district_name": "Bhavnagar",
+            "district_url": "https://igod.gov.in/district/6Dg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Bhavnagar",
+                "Gariadhar",
+                "Ghogha",
+                "Jesar",
+                "Mahuva",
+                "Palitana",
+                "Sihor",
+                "Talaja",
+                "Umrala",
+                "Vallabhipur"
+            ]
+        },
+        {
+            "district_name": "Botad",
+            "district_url": "https://igod.gov.in/district/Cjg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Barwala",
+                "Botad",
+                "Gadhada",
+                "Ranpur"
+            ]
+        },
+        {
+            "district_name": "Chhotaudepur",
+            "district_url": "https://igod.gov.in/district/DDg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Bodeli",
+                "Chhota Udaipur",
+                "Jetpur Pavi",
+                "Kavant",
+                "Nasvadi",
+                "Sankheda"
+            ]
+        },
+        {
+            "district_name": "Dang",
+            "district_url": "https://igod.gov.in/district/hDg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Ahwa",
+                "Subir",
+                "Waghai"
+            ]
+        },
+        {
+            "district_name": "Devbhumi Dwarka",
+            "district_url": "https://igod.gov.in/district/Czg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Bhanvad",
+                "Kalyanpur",
+                "Khambhalia",
+                "Okhamandal"
+            ]
+        },
+        {
+            "district_name": "Dohad",
+            "district_url": "https://igod.gov.in/district/6jg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Devgadbaria",
+                "Dhanpur",
+                "Dohad",
+                "Fatepura",
+                "Garbada",
+                "Jhalod",
+                "Limkheda",
+                "Sanjeli",
+                "Singvad"
+            ]
+        },
+        {
+            "district_name": "Gandhinagar",
+            "district_url": "https://igod.gov.in/district/6zg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Dehgam",
+                "Gandhinagar",
+                "Kalol Gandhinagar",
+                "Mansa"
+            ]
+        },
+        {
+            "district_name": "Gir Somnath",
+            "district_url": "https://igod.gov.in/district/DTg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Gir Gadhda",
+                "Kodinar",
+                "Patan-Veraval",
+                "Sutrapada",
+                "Talala",
+                "Una"
+            ]
+        },
+        {
+            "district_name": "Jamnagar",
+            "district_url": "https://igod.gov.in/district/tTg3tXQBW7DqAzx4Vrqs/sub_districts",
+            "sub_district_name": [
+                "Dhrol",
+                "Jamjodhpur",
+                "Jamnagar City",
+                "Jamnagar Rural",
+                "Jodiya",
+                "Kalavad",
+                "Lalpur"
+            ]
+        },
+        {
+            "district_name": "Junagadh",
+            "district_url": "https://igod.gov.in/district/Lzg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Bhesan",
+                "Junagadh",
+                "Junagadh City",
+                "Keshod",
+                "Malia Hatina",
+                "Manavadar",
+                "Mangrol",
+                "Mendarda",
+                "Vanthali",
+                "Visavadar"
+            ]
+        },
+        {
+            "district_name": "Kachchh",
+            "district_url": "https://igod.gov.in/district/qTg3tXQBW7DqAzx4Vrqs/sub_districts",
+            "sub_district_name": [
+                "Abdasa",
+                "Anjar",
+                "Bhachau",
+                "Bhuj",
+                "Gandhidham",
+                "Lakhpat",
+                "Mandvi",
+                "Mundra",
+                "Nakhatrana",
+                "Rapar"
+            ]
+        },
+        {
+            "district_name": "Kheda",
+            "district_url": "https://igod.gov.in/district/7Dg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Galteshwar",
+                "Kapadvanj",
+                "Kathlal",
+                "Kheda",
+                "Mahudha",
+                "Matar",
+                "Mehmedabad",
+                "Nadiad",
+                "Nadiad City",
+                "Thasra",
+                "Vaso"
+            ]
+        },
+        {
+            "district_name": "Mahesana",
+            "district_url": "https://igod.gov.in/district/7Tg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Becharaji",
+                "Jotana",
+                "Kadi",
+                "Kheralu",
+                "Mahesana",
+                "Satlasana",
+                "Unjha",
+                "Vadnagar",
+                "Vijapur",
+                "Visnagar"
+            ]
+        },
+        {
+            "district_name": "Mahisagar",
+            "district_url": "https://igod.gov.in/district/Djg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Balasinor",
+                "Kadana",
+                "Khanpur",
+                "Lunawada",
+                "Santrampur",
+                "Virpur"
+            ]
+        },
+        {
+            "district_name": "Morbi",
+            "district_url": "https://igod.gov.in/district/EDg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Halvad",
+                "Maliya",
+                "Morvi",
+                "Tankara",
+                "Wankaner"
+            ]
+        },
+        {
+            "district_name": "Narmada",
+            "district_url": "https://igod.gov.in/district/hTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Dediapada",
+                "Garudeshwar",
+                "Nandod",
+                "Sagbara",
+                "Tilakwada"
+            ]
+        },
+        {
+            "district_name": "Navsari",
+            "district_url": "https://igod.gov.in/district/2jg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Bansda",
+                "Chikhli",
+                "Gandevi",
+                "Jalalpore",
+                "Khergam",
+                "Navsari"
+            ]
+        },
+        {
+            "district_name": "Panch Mahals",
+            "district_url": "https://igod.gov.in/district/Mjg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Ghoghamba",
+                "Godhra",
+                "Halol",
+                "Jambughoda",
+                "Kalol",
+                "Morwa (Hadaf)",
+                "Shehera"
+            ]
+        },
+        {
+            "district_name": "Patan",
+            "district_url": "https://igod.gov.in/district/MTg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Chanasma",
+                "Harij",
+                "Patan",
+                "Radhanpur",
+                "Sami",
+                "Santalpur",
+                "Saraswati",
+                "Shankheshvar",
+                "Sidhpur"
+            ]
+        }
+    ]
+}

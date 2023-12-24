@@ -1,0 +1,222 @@
+{
+    "sate": "Nagaland",
+    "state_url": "https://igod.gov.in/sg/NL/categories",
+    "district_name": [
+        {
+            "district_name": "Chumoukedima",
+            "district_url": "https://igod.gov.in/district/t3uWcYgB2SjI4rfpAZHy/sub_districts",
+            "sub_district_name": [
+                "Chumukedima",
+                "Dhansiripar",
+                "Medziphema"
+            ]
+        },
+        {
+            "district_name": "Dimapur",
+            "district_url": "https://igod.gov.in/district/pzg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Aquqhnaqua",
+                "Dimapur Sadar",
+                "Kuhoboto",
+                "Nihokhu"
+            ]
+        },
+        {
+            "district_name": "Kiphire",
+            "district_url": "https://igod.gov.in/district/Szg3tXQBW7DqAzx4Vr2t/sub_districts",
+            "sub_district_name": [
+                "Amahator",
+                "Khongsa",
+                "Kiphire Sadar",
+                "Kiusam",
+                "Longmatra",
+                "Pungro",
+                "Seyochung",
+                "Sitimi"
+            ]
+        },
+        {
+            "district_name": "Kohima",
+            "district_url": "https://igod.gov.in/district/Yzg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Botsa",
+                "Chiephobozou",
+                "Jakhama",
+                "Kezocha",
+                "Kohima Sadar",
+                "Sechu-Zubza"
+            ]
+        },
+        {
+            "district_name": "Longleng",
+            "district_url": "https://igod.gov.in/district/ejg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Longleng",
+                "Namsang",
+                "Sakshi",
+                "Tamlu",
+                "Yongnyah"
+            ]
+        },
+        {
+            "district_name": "Mokokchung",
+            "district_url": "https://igod.gov.in/district/xjg3tXQBW7DqAzx4Vrqs/sub_districts",
+            "sub_district_name": [
+                "Alongkima",
+                "Changtongya",
+                "Chuchuyimlang",
+                "Kubolong",
+                "Longchem",
+                "Mangkolemba",
+                "Merangmen",
+                "Ongpangkong",
+                "Ongpangkong (N)",
+                "Tsurangkong",
+                "Tuli"
+            ]
+        },
+        {
+            "district_name": "Mon",
+            "district_url": "https://igod.gov.in/district/sjg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Aboi",
+                "Angjangyang",
+                "Chen",
+                "Hunta",
+                "Longshen",
+                "Mon Sadar",
+                "Monyakshu",
+                "Mopong",
+                "Naginimora",
+                "Phomching",
+                "Shangnyu",
+                "Tizit",
+                "Tobu",
+                "Wakching"
+            ]
+        },
+        {
+            "district_name": "Niuland",
+            "district_url": "https://igod.gov.in/district/tnuVcYgB2SjI4rfpRpEh/sub_districts",
+            "sub_district_name": [
+                "Niuland"
+            ]
+        },
+        {
+            "district_name": "Noklak",
+            "district_url": "https://igod.gov.in/district/BvMK33sBnAUp6yMBF92e/sub_districts",
+            "sub_district_name": [
+                "Nokhu",
+                "Noklak",
+                "Panso",
+                "Thonoknyu"
+            ]
+        },
+        {
+            "district_name": "Peren",
+            "district_url": "https://igod.gov.in/district/Zzg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Athibung",
+                "Jalukie",
+                "Kebai Khelma",
+                "Nsong",
+                "Pedi (Ngwalwa)",
+                "Peren",
+                "Tening"
+            ]
+        },
+        {
+            "district_name": "Phek",
+            "district_url": "https://igod.gov.in/district/pjg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Chetheba",
+                "Chizami",
+                "Chozuba",
+                "Khezhakeno",
+                "Khuza",
+                "Kikruma",
+                "Meluri",
+                "Pfutsero",
+                "Phek Sadar",
+                "Phokhungri",
+                "Phor",
+                "Razieba",
+                "Sakraba",
+                "Sekruzu",
+                "Weziho",
+                "Zuketsa"
+            ]
+        },
+        {
+            "district_name": "Shamator",
+            "district_url": "https://igod.gov.in/district/uXuWcYgB2SjI4rfpz5Hl/sub_districts",
+            "sub_district_name": [
+                "Chessore",
+                "Mangko",
+                "Shamator",
+                "Sotokur",
+                "Tsurungto"
+            ]
+        },
+        {
+            "district_name": "Tseminyu",
+            "district_url": "https://igod.gov.in/district/unuXcYgB2SjI4rfpq5Fc/sub_districts",
+            "sub_district_name": [
+                "Chunlikha",
+                "Tseminyu",
+                "Tsogin"
+            ]
+        },
+        {
+            "district_name": "Tuensang",
+            "district_url": "https://igod.gov.in/district/szg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Chare",
+                "Chingmei",
+                "Longkhim",
+                "Ngoungchung",
+                "Noksen",
+                "Sangsangnyu",
+                "Tuensang Sadar"
+            ]
+        },
+        {
+            "district_name": "Wokha",
+            "district_url": "https://igod.gov.in/district/pTg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Aitepyong",
+                "Baghty",
+                "Bhandari",
+                "Changpang",
+                "Chukitong",
+                "Englan",
+                "Lotsu",
+                "Ralan",
+                "Sanis",
+                "Sungro",
+                "Wokha Sadar",
+                "Wozhuro"
+            ]
+        },
+        {
+            "district_name": "Zunheboto",
+            "district_url": "https://igod.gov.in/district/YTg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Aghunato",
+                "Akuhaito",
+                "Akuluto",
+                "Asuto",
+                "Atoizu",
+                "Ghathashi",
+                "Pughoboto",
+                "Saptiqa",
+                "Satakha",
+                "Satoi",
+                "Suruhuto",
+                "Tokiye",
+                "V.K.",
+                "Zunheboto Sadar"
+            ]
+        }
+    ]
+}
