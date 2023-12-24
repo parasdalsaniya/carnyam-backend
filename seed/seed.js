@@ -1,14 +1,46 @@
 const fs = require('fs');
 const client = require('../connection/database');
 const path = require('path');
+const { vehicleTypes, vehicleSubTypes } = require('./VehicleTypes');
 
 async function seedData() {
     try {
         const subDistrictCount = await client.query(`SELECT COUNT(*) AS rowcount FROM sub_district;`)
-        if(subDistrictCount.rows[0].rowcount == 0) await addStateDistrictData()
+        if (subDistrictCount.rows[0].rowcount == 0) await addStateDistrictData()
+
+        const vehicleTypeCount = await client.query(`SELECT COUNT(*) AS rowcount FROM vehicle_type;`)
+        const subTypeCount = await client.query(`SELECT COUNT(*) AS rowcount FROM vehicle_subtype;`)
+        if ((vehicleTypeCount.rows[0].rowcount == 0) || (subTypeCount.rows[0].rowcount == 0)) await addCarTypeData()
+
         console.log("Data inserted successfully.");
     } catch (error) {
         console.error("Error inserting data:", error);
+        throw error;
+    }
+}
+
+async function addCarTypeData() {
+    try {
+        await client.query('BEGIN');
+        for (const vehicleType of vehicleTypes) {
+            const insertVehicleTypeQuery = `INSERT INTO vehicle_type (vehicle_type_name) VALUES ($1) RETURNING vehicle_type_id`;
+            const vehicleTypeResult = await client.query(insertVehicleTypeQuery, [vehicleType]);
+        }
+        for (const subType of vehicleSubTypes) {
+            const queryText = `
+            INSERT INTO vehicle_subtype (vehicle_type_id, vehicle_subtype_name, vehicle_subtype_price_per_km, vehicle_subtype_num_of_seats)
+            SELECT vt.vehicle_type_id, $1, $2, $3
+            FROM vehicle_type vt
+            WHERE vt.vehicle_type_name = $4
+                RETURNING vehicle_subtype_id
+            `;
+            const { vehicle_type, name, vehicle_subtype_price_per_km, vehicle_subtype_num_of_seats } = subType;
+            const subTypeResult = await client.query(queryText, [name, vehicle_subtype_price_per_km, vehicle_subtype_num_of_seats, vehicle_type]);
+        }
+
+        await client.query('COMMIT');
+        console.log("Car Type Data inserted successfully.");
+    } catch (error) {
         throw error;
     }
 }
