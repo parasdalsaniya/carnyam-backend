@@ -236,19 +236,16 @@ const changeLogDetailsLib = async (obj) => {
 
   if (obj.companyId)
     fieldArr.push({ field: "company_id", value: obj.companyId });
-  const changeLogDetails = await crud.executeQuery(
-    crud.makeInsertQueryString(
-      "change_log",
-      fieldArr,
-      ["change_log_id", "timestamp"],
-      false
-    )
+  const changeLogDetails = await crud.makeInsertQueryString(
+    "change_log",
+    fieldArr,
+    ["change_log_id", "timestamp"],
+    false
   );
-
   if (!changeLogDetails.status) {
     return {
       status: false,
-      error: constant.requestMessages.ERR_WHILE_EXCUTING_MYSQL_QUERY,
+      error: constants.requestMessages.ERR_WHILE_EXCUTING_MYSQL_QUERY,
     };
   }
   return changeLogDetails.data[0].change_log_id;
