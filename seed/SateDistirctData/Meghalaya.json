@@ -1,0 +1,132 @@
+{
+    "sate": "Meghalaya",
+    "state_url": "https://igod.gov.in/sg/ML/categories",
+    "district_name": [
+        {
+            "district_name": "East Garo Hills",
+            "district_url": "https://igod.gov.in/district/hjg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Dambo Rongjeng",
+                "Samanda",
+                "Songsak"
+            ]
+        },
+        {
+            "district_name": "East Jaintia Hills",
+            "district_url": "https://igod.gov.in/district/8Dg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Lumshnong",
+                "Saipung",
+                "Wapung"
+            ]
+        },
+        {
+            "district_name": "East Khasi Hills",
+            "district_url": "https://igod.gov.in/district/MDg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Khatarshnong Laitkroh",
+                "Mawkynrew",
+                "Mawlai",
+                "Mawpat",
+                "Mawphlang",
+                "Mawryngkneng",
+                "Mawsynram",
+                "Mylliem",
+                "Pynursla",
+                "Shella Bholaganj",
+                "Sohiong"
+            ]
+        },
+        {
+            "district_name": "Eastern West Khasi Hills",
+            "district_url": "https://igod.gov.in/district/Q6NEInUBxrox_Nfi_3ix/sub_districts",
+            "sub_district_name": [
+                "Mairang",
+                "Mawthadraishan"
+            ]
+        },
+        {
+            "district_name": "North Garo Hills",
+            "district_url": "https://igod.gov.in/district/PTg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Adokgre",
+                "Bajengdoba",
+                "Kharkutta",
+                "Resubelpara"
+            ]
+        },
+        {
+            "district_name": "Ri Bhoi",
+            "district_url": "https://igod.gov.in/district/2zg3tXQBW7DqAzx4Vrqs/sub_districts",
+            "sub_district_name": [
+                "Bhoirymbong",
+                "Jirang",
+                "Umling",
+                "Umsning"
+            ]
+        },
+        {
+            "district_name": "South Garo Hills",
+            "district_url": "https://igod.gov.in/district/Pjg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Baghmara",
+                "Chokpot",
+                "Gasuapara",
+                "Rongara",
+                "Siju"
+            ]
+        },
+        {
+            "district_name": "South West Garo Hills",
+            "district_url": "https://igod.gov.in/district/nTg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Betasing",
+                "Rerapara",
+                "Zikzak"
+            ]
+        },
+        {
+            "district_name": "South West Khasi Hills",
+            "district_url": "https://igod.gov.in/district/PDg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Mawkyrwat",
+                "Ranikor"
+            ]
+        },
+        {
+            "district_name": "West Garo Hills",
+            "district_url": "https://igod.gov.in/district/3zg3tXQBW7DqAzx4Vrqs/sub_districts",
+            "sub_district_name": [
+                "Batabari",
+                "Dadenggiri",
+                "Dalu",
+                "Demdema",
+                "Gambegre",
+                "Rongram",
+                "Selsella",
+                "Tikrikilla"
+            ]
+        },
+        {
+            "district_name": "West Jaintia Hills",
+            "district_url": "https://igod.gov.in/district/qDg3tXQBW7DqAzx4Vrqs/sub_districts",
+            "sub_district_name": [
+                "Amlarem",
+                "Laskein",
+                "Namdong",
+                "Thadlaskein"
+            ]
+        },
+        {
+            "district_name": "West Khasi Hills",
+            "district_url": "https://igod.gov.in/district/Lzg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Mawshynrut",
+                "Nongstoin",
+                "Rambrai",
+                "Ri Muliang",
+                "Shallang"
+            ]
+        }
+    ]
+}

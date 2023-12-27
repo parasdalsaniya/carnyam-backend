@@ -6,6 +6,7 @@ var logger = require("morgan");
 var nodemailer = require("nodemailer");
 
 var indexRouter = require("./routes/index");
+const { seedData } = require("./seed/seed");
 var app = express();
 
 // view engine setup
@@ -36,7 +37,9 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-const PORT = process.env.PORT || 4001;
-app.listen(PORT);
-console.log("Server Runing ", PORT);
+const PORT = process.env.PORT || 4001
+seedData().then(() => {
+  app.listen(PORT);
+  console.log("Server Running on", PORT);
+})
 module.exports = app;

@@ -1,0 +1,100 @@
+{
+    "sate": "Mizoram",
+    "state_url": "https://igod.gov.in/sg/MZ/categories",
+    "district_name": [
+        {
+            "district_name": "Aizawl",
+            "district_url": "https://igod.gov.in/district/mjg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Aibawk",
+                "Darlawn",
+                "Thingsulthliah",
+                "Tlangnuam"
+            ]
+        },
+        {
+            "district_name": "Champhai",
+            "district_url": "https://igod.gov.in/district/mDg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Champhai",
+                "Khawbung"
+            ]
+        },
+        {
+            "district_name": "Hnahthial",
+            "district_url": "https://igod.gov.in/district/kaNEInUBxrox_Nfi_32z/sub_districts",
+            "sub_district_name": [
+                "Hnahthial"
+            ]
+        },
+        {
+            "district_name": "Khawzawl",
+            "district_url": "https://igod.gov.in/district/eKNEInUBxrox_Nfi_3yz/sub_districts",
+            "sub_district_name": [
+                "Khawzawl"
+            ]
+        },
+        {
+            "district_name": "Kolasib",
+            "district_url": "https://igod.gov.in/district/ZDg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Bilkhawthlir",
+                "N Thingdawl"
+            ]
+        },
+        {
+            "district_name": "Lawngtlai",
+            "district_url": "https://igod.gov.in/district/vTg3tXQBW7DqAzx4Vrut/sub_districts",
+            "sub_district_name": [
+                "Bungtlang S",
+                "Chawngte",
+                "Lawngtlai",
+                "Sangau"
+            ]
+        },
+        {
+            "district_name": "Lunglei",
+            "district_url": "https://igod.gov.in/district/dDg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Bunghmun",
+                "Lunglei",
+                "Lungsen",
+                "Tlabung"
+            ]
+        },
+        {
+            "district_name": "Mamit",
+            "district_url": "https://igod.gov.in/district/ZTg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "Kawrtethawveng",
+                "Reiek",
+                "West Phaileng",
+                "Zawlnuam"
+            ]
+        },
+        {
+            "district_name": "Saitual",
+            "district_url": "https://igod.gov.in/district/JaNEInUBxrox_Nfi_3uy/sub_districts",
+            "sub_district_name": [
+                "Ngopa",
+                "Phullen"
+            ]
+        },
+        {
+            "district_name": "Serchhip",
+            "district_url": "https://igod.gov.in/district/RTg3tXQBW7DqAzx4Vryt/sub_districts",
+            "sub_district_name": [
+                "East Lungdar",
+                "Serchhip"
+            ]
+        },
+        {
+            "district_name": "Siaha",
+            "district_url": "https://igod.gov.in/district/mzg3tXQBW7DqAzx4Vrus/sub_districts",
+            "sub_district_name": [
+                "Siaha",
+                "Tipa"
+            ]
+        }
+    ]
+}
