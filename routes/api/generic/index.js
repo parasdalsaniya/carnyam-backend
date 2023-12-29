@@ -6,4 +6,6 @@ const middleware = require("../../middleware");
 
 router.get("/vehicle", genericController.getVehicleController);
 
+router.post("/get-ride-fare", genericController.getRideFareController)
+
 module.exports = router;
