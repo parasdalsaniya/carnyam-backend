@@ -5,6 +5,12 @@ const getVehicleController = async (req, res) => {
   return res.send(result);
 };
 
+const getRideFareController = async (req, res) => {
+  const result = await genericModule.getRideFareModule(req);
+  return res.send(result);
+};
+
 module.exports = {
-    getVehicleController: getVehicleController,
+  getVehicleController: getVehicleController,
+  getRideFareController
 };

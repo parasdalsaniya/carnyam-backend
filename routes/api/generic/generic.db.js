@@ -1,7 +1,7 @@
 const crud = require("../../crud");
 
-const getVehicleDB = async () => {
-  var sql = `
+const getVehicleDB = async (vehicleSubtypeId) => {
+  let sql = `
     SELECT
       vt.vehicle_type_id,
       vt.vehicle_type_name,
@@ -13,10 +13,14 @@ const getVehicleDB = async () => {
       vehicle_type vt
     LEFT JOIN
       vehicle_subtype vs ON vt.vehicle_type_id = vs.vehicle_type_id
-    ORDER BY
-      vt.vehicle_type_id, vs.vehicle_subtype_id;
   `;
-  var result = await crud.executeQuery(sql);
+
+  if (vehicleSubtypeId)
+    sql += ` WHERE vs.vehicle_subtype_id = '${vehicleSubtypeId}' `;
+
+  sql += ` ORDER BY vt.vehicle_type_id, vs.vehicle_subtype_id; `;
+
+  const result = await crud.executeQuery(sql);
   return result;
 };
 
