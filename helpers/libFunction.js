@@ -330,6 +330,35 @@ const objValidator = async (array) => {
   return result;
 };
 
+const getUniqueId = async (tableName, tableId) => {
+  var uniqueObj = [
+    {
+      field: "table_name",
+      value: tableName,
+    },
+    {
+      field: "table_id",
+      value: tableId,
+    },
+    {
+      field: "timestamp",
+      value: await formatDateTimeLib(new Date()),
+    },
+  ];
+
+  var uniqueId = await crud.makeInsertQueryString(
+    "public.unique",
+    uniqueObj,
+    true
+  );
+  // console.log(uniqueId);
+  return uniqueId.data[0].unique_id;
+};
+const updateUniqueId = async (uniqueId, tableId) => {
+  await crud.executeQuery(
+    `update public.unique set table_id = '${tableId}' where unique_id = '${uniqueId}'`
+  );
+};
 module.exports = {
   makeid: makeid,
   formatDateLib: formatDateLib,
@@ -346,4 +375,6 @@ module.exports = {
   InsertQuery: InsertQuery,
   driverLogDetailsLib: driverLogDetailsLib,
   objValidator: objValidator,
+  getUniqueId: getUniqueId,
+  updateUniqueId: updateUniqueId,
 };
