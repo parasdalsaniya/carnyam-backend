@@ -37,9 +37,29 @@ const deleteDailyRout = async (dailyRoutId, changeLogId, userId) => {
   return result;
 };
 
+const driverLiveLocation = async (location) => {
+  await crud.executeQuery(`UPDATE driver_live_location
+	SET  
+  dll_ride_point_name='${location.ride_point_name.replaceAll("'", "''")}', 
+  dll_latitude='${location.latitude}', dll_longitude='${location.longitude}', 
+  geometry=ST_SetSRID(ST_MakePoint(${location.longitude}, ${
+    location.latitude
+  }), 4326),
+  timestamp = '${location.timestamp}'
+	WHERE driver_id='${location.driver_id}';`);
+};
+
+const createDriverLiveLocation = async (driverId, timestamp) => {
+  await crud.executeQuery(`INSERT INTO public.driver_live_location(
+  driver_id, dll_ride_point_name, dll_latitude, dll_longitude, geometry, "timestamp")
+  VALUES ('${driverId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}');`);
+};
+
 module.exports = {
   calculateRideFare,
   createRidePoint,
   getRidePoint,
   deleteDailyRout,
+  driverLiveLocation,
+  createDriverLiveLocation,
 };
