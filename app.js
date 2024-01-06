@@ -22,9 +22,7 @@ const io = new Server(server, {
 
 io.use(async (socket, next) => {
   try {
-    const token = socket.handshake.auth.token;
-    console.log('token', token)
-    const authenticated = await checkSocketAccessToken(token, socket)
+    const authenticated = await checkSocketAccessToken(socket, next)
     if (authenticated) {
       return next();
     }
@@ -37,7 +35,6 @@ io.on('connection', (socket) => {
   console.log('User connected', socket.driver_id);
 
   socket.on("driver-live-location", (data) => {
-    // console.log('live-data: ', data);
     console.log('driver-live-location', socket.driver_id)
     addDriverLiveLocation(data)
   });

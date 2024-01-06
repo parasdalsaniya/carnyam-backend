@@ -61,10 +61,13 @@ const checkAccessToken = async (req, res, next) => {
   next();
 };
 
-const checkSocketAccessToken = async (authTokenHeader, socket) => {
+const checkSocketAccessToken = async (socket, next) => {
   try {
+    const authTokenHeader = socket.handshake.headers.authorization;
+    console.log('socket.handshake.headers.authorization-> ', authTokenHeader)
+
     if (!authTokenHeader)
-    next(new Error('Token not found.'))
+      throw new Error('Token not found.');
 
     const accessToken = authTokenHeader.replace("Bearer ", "");
 
@@ -84,7 +87,8 @@ const checkSocketAccessToken = async (authTokenHeader, socket) => {
     socket.access_token_data = accessToken;
     return true
   } catch (error) {
-    console.log('Error in checkSocketAccessToken: ', error)
+    console.log('Error in checkSocketAccessToken: ', error.message)
+    throw error
   }
 }
 
