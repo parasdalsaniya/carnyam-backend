@@ -16,18 +16,23 @@ const getVehicleModule = async (req) => {
 
 const getRideFareModule = async (req) => {
   try {
-    const { vehicle_sub_type, total_distance, estimated_time } = req.query;
+    console.log(req.body);
+    const { vehicle_sub_type, total_distance, estimated_time } = req.body;
 
     const vehicleDetail = await genericDb.getVehicleDB(+vehicle_sub_type);
-    const cost = calculateRideFare(total_distance, vehicleDetail.data[0].vehicle_subtype_price_per_km, estimated_time);
+    const cost = calculateRideFare(
+      total_distance,
+      vehicleDetail.data[0].vehicle_subtype_price_per_km,
+      estimated_time
+    );
 
     return { totalRideFare: cost };
   } catch (error) {
-    console.log('Error in getRideFareModule: ', error);
+    console.log("Error in getRideFareModule: ", error);
   }
 };
 
 module.exports = {
   getVehicleModule: getVehicleModule,
-  getRideFareModule,
+  getRideFareModule: getRideFareModule,
 };

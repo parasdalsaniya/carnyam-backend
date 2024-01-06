@@ -12,5 +12,5 @@ const getRideFareController = async (req, res) => {
 
 module.exports = {
   getVehicleController: getVehicleController,
-  getRideFareController
+  getRideFareController: getRideFareController,
 };
