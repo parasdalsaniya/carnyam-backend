@@ -3,7 +3,7 @@ console.log("crud");
 module.exports.executeQuery = async (que) => {
   console.log("timestamp---->" + new Date());
   //query=escape(query);
-  console.log(que);
+  console.log(`\x1b[31m ${que} \x1b[0m`);
   var obj = {};
   try {
     console.log("entered");
@@ -57,7 +57,8 @@ module.exports.makeInsertQueryString = async (
         .join(",")}) VALUES (${values});`;
     }
     console.log("entered");
-    console.log(sql);
+    console.log(`\x1b[31m ${sql} \x1b[0m`);
+
     var res = await client.query(sql);
     console.log("entered");
     obj = {
@@ -89,6 +90,7 @@ module.exports.makeUpdateQueryString = (table_name, valueArr, conditions) => {
     .join(",");
   sql += str;
   sql = sql + " WHERE " + conditions;
+  console.log(`\x1b[31m ${sql} \x1b[0m`);
   return sql;
 };
 

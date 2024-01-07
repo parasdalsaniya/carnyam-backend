@@ -30,7 +30,7 @@ const getRidePoint = async (uniqueId) => {
   return result;
 };
 
-const driverLiveLocation = async (location) => {
+const updateDriverLiveLocation = async (location) => {
   await crud.executeQuery(`UPDATE driver_live_location
 	SET  
   dll_ride_point_name='${location.ride_point_name.replaceAll("'", "''")}', 
@@ -64,10 +64,10 @@ const getNearestDriver = async (latitude, longitude, radius) => {
 };
 
 module.exports = {
-  calculateRideFare,
-  createRidePoint,
-  getRidePoint,
-  driverLiveLocation,
-  createDriverLiveLocation,
-  getNearestDriver,
+  calculateRideFare: calculateRideFare,
+  createRidePoint: createRidePoint,
+  getRidePoint: getRidePoint,
+  updateDriverLiveLocation: updateDriverLiveLocation,
+  createDriverLiveLocation: createDriverLiveLocation,
+  getNearestDriver: getNearestDriver,
 };
