@@ -19,7 +19,7 @@ const getRideFareModule = async (req) => {
     console.log(req.body);
     const { vehicle_sub_type, total_distance, estimated_time } = req.body;
 
-    const vehicleDetail = await genericDb.getVehicleDB(+vehicle_sub_type);
+    const vehicleDetail = await genericDb.getVehicleDB(vehicle_sub_type);
     const cost = calculateRideFare(
       total_distance,
       vehicleDetail.data[0].vehicle_subtype_price_per_km,

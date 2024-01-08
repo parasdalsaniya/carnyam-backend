@@ -30,14 +30,7 @@ const getRidePoint = async (uniqueId) => {
   return result;
 };
 
-const deleteDailyRout = async (dailyRoutId, changeLogId, userId) => {
-  var result = await crud.executeQuery(
-    `update daily_rout set flag_deleted = true,change_log_id = '${changeLogId}'  where daily_rout_id = '${dailyRoutId}' and user_id = '${userId}'`
-  );
-  return result;
-};
-
-const driverLiveLocation = async (location) => {
+const updateDriverLiveLocation = async (location) => {
   await crud.executeQuery(`UPDATE driver_live_location
 	SET  
   dll_ride_point_name='${location.ride_point_name.replaceAll("'", "''")}', 
@@ -45,21 +38,36 @@ const driverLiveLocation = async (location) => {
   geometry=ST_SetSRID(ST_MakePoint(${location.longitude}, ${
     location.latitude
   }), 4326),
-  timestamp = '${location.timestamp}'
+  timestamp = '${location.timestamp}',
+  socket_id = '${location.socket_id}'
 	WHERE driver_id='${location.driver_id}';`);
 };
 
 const createDriverLiveLocation = async (driverId, timestamp) => {
   await crud.executeQuery(`INSERT INTO public.driver_live_location(
-  driver_id, dll_ride_point_name, dll_latitude, dll_longitude, geometry, "timestamp")
-  VALUES ('${driverId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}');`);
+  driver_id, dll_ride_point_name, dll_latitude, dll_longitude, geometry, "timestamp",socket_id)
+  VALUES ('${driverId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}','622003');`);
+};
+
+const getNearestDriver = async (latitude, longitude, radius) => {
+  var sql = `SELECT 
+      *,
+      ST_Distance(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography) / 1000 AS distance_km,
+      ST_Distance(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography) AS distance_mit
+    FROM 
+      driver_live_location
+    WHERE 
+    ST_DWithin(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography, ${radius}) -- 5000 meters = 5 km
+      ORDER BY distance_km;`;
+  var result = await crud.executeQuery(sql);
+  return result;
 };
 
 module.exports = {
-  calculateRideFare,
-  createRidePoint,
-  getRidePoint,
-  deleteDailyRout,
-  driverLiveLocation,
-  createDriverLiveLocation,
+  calculateRideFare: calculateRideFare,
+  createRidePoint: createRidePoint,
+  getRidePoint: getRidePoint,
+  updateDriverLiveLocation: updateDriverLiveLocation,
+  createDriverLiveLocation: createDriverLiveLocation,
+  getNearestDriver: getNearestDriver,
 };

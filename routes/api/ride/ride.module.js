@@ -174,7 +174,7 @@ const deleteDailyRoutModule = async (req) => {
     ipAddress: req.ip,
     userId: userId,
   });
-  var deleteDailyRout = await rideFare.deleteDailyRout(
+  var deleteDailyRout = await rideDb.deleteDailyRout(
     dailyRoutId,
     changeLogId,
     userId

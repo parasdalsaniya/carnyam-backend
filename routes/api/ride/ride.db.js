@@ -24,9 +24,17 @@ const updateDailyRout = async (dailyRoutObj) => {
   return result;
 };
 
+const deleteDailyRout = async (dailyRoutId, changeLogId, userId) => {
+  var result = await crud.executeQuery(
+    `update daily_rout set flag_deleted = true,change_log_id = '${changeLogId}'  where daily_rout_id = '${dailyRoutId}' and user_id = '${userId}'`
+  );
+  return result;
+};
+
 module.exports = {
   getVehicleDB: getVehicleDB,
   createDailyRout: createDailyRout,
   getDailyRout: getDailyRout,
   updateDailyRout: updateDailyRout,
+  deleteDailyRout: deleteDailyRout,
 };
