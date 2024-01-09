@@ -7,6 +7,7 @@ const constants = require("../../../helpers/consts");
 const libStorage = require("../../../helpers/libStorage");
 const libAuth = require("../../../helpers/libAuth");
 const crud = require("../../crud");
+const rideFare = require("../../../helpers/rideFare");
 // Driver Profile Detail (/users/me)
 function errorMessage(params) {
   return {
@@ -249,7 +250,7 @@ const createDriverProfileModule = async (req) => {
 
     return errorMessage(constants.requestMessages.ERR_SOMTHIN_WENT_WRONG);
   }
-
+  await rideFare.createDriverLiveLocation(creaetDriver.data[0].driver_id,timestamp)
   var accessToken = await libAuth.createDriverAcessToken(
     creaetDriver.data[0].driver_id
   );
