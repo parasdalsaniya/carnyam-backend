@@ -82,8 +82,11 @@ const checkSocketAccessToken = async (socket, next) => {
 
     if (getUserIdByATokenDB.data.length == 0) 
       throw new Error("Error invalid authentication found.")
-
-    socket.driver_id = getUserIdByATokenDB.data[0].user_id;
+    if (getUserIdByATokenDB.data[0].flag_driver == false) {
+      socket.user_id = getUserIdByATokenDB.data[0].user_id;
+    } else {
+      socket.driver_id = getUserIdByATokenDB.data[0].user_id;
+    }
     socket.access_token_data = accessToken;
     return true
   } catch (error) {
