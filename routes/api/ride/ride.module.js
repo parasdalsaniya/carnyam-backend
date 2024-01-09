@@ -50,7 +50,7 @@ const getDailyRoutModule = async (req) => {
     delete x["change_log_id"];
     return x;
   });
-  console.log(dailyRout.data[0]);
+  
   dailyRout = await Promise.all(
     dailyRout.data.map(async (x) => {
       return {
@@ -60,6 +60,7 @@ const getDailyRoutModule = async (req) => {
         total_distance: x.total_distance,
         estimated_time: x.estimated_time,
         daily_rout_id: x.daily_rout_id,
+        daily_rout_name:x.daily_rout_name
       };
     })
   );
@@ -77,6 +78,7 @@ const createDailyRoutModule = async (req) => {
   var vehicleSubTypeId = req.body.vehicle_subtype_id;
   var rideDateTime = req.body.ride_date_time;
   var userId = req.user_id;
+  var driverRoutName = req.body.daily_rout_name
   var validate = await libFunction.objValidator([
     distance,
     time,
@@ -85,6 +87,7 @@ const createDailyRoutModule = async (req) => {
     estimatedTime,
     vehicleSubTypeId,
     rideDateTime,
+    driverRoutName
   ]);
 
   if (validate == false) {
@@ -140,6 +143,10 @@ const createDailyRoutModule = async (req) => {
       field: "unique_id",
       value: uniqueId,
     },
+    {
+      field:"daily_rout_name",
+      value: driverRoutName
+    }
   ];
 
   var dailyRout = await rideDb.createDailyRout(dailyRoutObj);
