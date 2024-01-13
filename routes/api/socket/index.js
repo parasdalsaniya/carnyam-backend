@@ -21,12 +21,24 @@ function initSocket(server) {
   });
 
   io.on("connection", (socket) => {
-    console.log("User connected", socket.driver_id);
+    console.log('SockerID: ', socket.id);
+    if (socket.user_id) console.log("User connected ", socket.user_id);
+    if (socket.driver_id) console.log("Driver connected ", socket.driver_id);
 
     socket.on("driver-live-location", async (data) => {
       socket["body"] = data;
       await socketModule.addDriverLiveLocation(socket);
     });
+
+    socket.on("find-nearest-driver", async (data) => {
+      socket["body"] = data;
+      await socketModule.findDriverLiveLocation(socket);
+    });
+
+    socket.on("nearest-ride-response-from-driver", async (data) => {
+      socket["body"] = data;
+      await socketModule.nearestDriverResponse(socket);
+    })
   });
 }
 
