@@ -40,13 +40,13 @@ const updateDriverLiveLocation = async (location) => {
   }), 4326),
   timestamp = '${location.timestamp}',
   socket_id = '${location.socket_id}'
-	WHERE driver_id='${location.driver_id}';`);
+	WHERE driver_id='${location.driver_id}'`);
 };
 
 const createDriverLiveLocation = async (driverId, timestamp) => {
   await crud.executeQuery(`INSERT INTO public.driver_live_location(
-  driver_id, dll_ride_point_name, dll_latitude, dll_longitude, geometry, "timestamp",socket_id)
-  VALUES ('${driverId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}','622003');`);
+  driver_id, dll_ride_point_name, dll_latitude, dll_longitude, geometry, "timestamp",socket_id,flag_ride_on)
+  VALUES ('${driverId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}','622003',false);`);
 };
 
 const getNearestDriver = async (latitude, longitude, radius) => {
@@ -63,6 +63,25 @@ const getNearestDriver = async (latitude, longitude, radius) => {
   return result;
 };
 
+const updateUserLiveLocation = async (location) => {
+  await crud.executeQuery(`UPDATE user_live_location
+	SET  
+  ull_ride_point_name='${location.ride_point_name.replaceAll("'", "''")}', 
+  ull_latitude='${location.latitude}', dll_longitude='${location.longitude}', 
+  geometry=ST_SetSRID(ST_MakePoint(${location.longitude}, ${
+    location.latitude
+  }), 4326),
+  timestamp = '${location.timestamp}',
+  socket_id = '${location.socket_id}'
+	WHERE user_id='${location.user_id}'`);
+};
+
+const createUserLiveLocation = async (userId, timestamp) => {
+  await crud.executeQuery(`INSERT INTO public.user_live_location(
+  user_id, ull_ride_point_name, ull_latitude, ull_longitude, geometry, "timestamp",socket_id,flag_ride_on)
+  VALUES ('${userId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}','622003',false);`);
+};
+
 module.exports = {
   calculateRideFare: calculateRideFare,
   createRidePoint: createRidePoint,
@@ -70,4 +89,6 @@ module.exports = {
   updateDriverLiveLocation: updateDriverLiveLocation,
   createDriverLiveLocation: createDriverLiveLocation,
   getNearestDriver: getNearestDriver,
+  updateUserLiveLocation:updateUserLiveLocation,
+  createUserLiveLocation:createUserLiveLocation
 };
