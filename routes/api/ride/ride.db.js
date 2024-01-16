@@ -31,10 +31,22 @@ const deleteDailyRout = async (dailyRoutId, changeLogId, userId) => {
   return result;
 };
 
+const createRideDB = async(ride) => {
+  var result = await crud.makeInsertQueryString("ride",ride,true)
+  return result
+}
+
+const creaetRideDetailDB = async (rideDetail) => {
+  var result = await crud.makeInsertQueryString("ride_detail",rideDetail,true)
+  return result
+}
+
 module.exports = {
   getVehicleDB: getVehicleDB,
   createDailyRout: createDailyRout,
   getDailyRout: getDailyRout,
   updateDailyRout: updateDailyRout,
   deleteDailyRout: deleteDailyRout,
+  createRideDB:createRideDB,
+  creaetRideDetailDB:creaetRideDetailDB
 };

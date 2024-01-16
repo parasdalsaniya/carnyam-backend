@@ -22,4 +22,6 @@ router.delete(
   middleware.checkAccessToken,
   rideController.deleteDailyRoutController
 );
+
+router.post("/create-ride",middleware.checkAccessToken,rideController.createRideController)
 module.exports = router;

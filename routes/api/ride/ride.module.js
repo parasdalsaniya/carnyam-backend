@@ -8,7 +8,7 @@ const libStorage = require("../../../helpers/libStorage");
 const libAuth = require("../../../helpers/libAuth");
 const crud = require("../../crud");
 const rideFare = require("../../../helpers/rideFare");
-
+const rideFareModule = require("../generic/generic.module");
 function errorMessage(params) {
   return {
     status: false,
@@ -50,7 +50,7 @@ const getDailyRoutModule = async (req) => {
     delete x["change_log_id"];
     return x;
   });
-  
+
   dailyRout = await Promise.all(
     dailyRout.data.map(async (x) => {
       return {
@@ -60,7 +60,7 @@ const getDailyRoutModule = async (req) => {
         total_distance: x.total_distance,
         estimated_time: x.estimated_time,
         daily_rout_id: x.daily_rout_id,
-        daily_rout_name:x.daily_rout_name
+        daily_rout_name: x.daily_rout_name,
       };
     })
   );
@@ -78,7 +78,7 @@ const createDailyRoutModule = async (req) => {
   var vehicleSubTypeId = req.body.vehicle_subtype_id;
   var rideDateTime = req.body.ride_date_time;
   var userId = req.user_id;
-  var driverRoutName = req.body.daily_rout_name
+  var driverRoutName = req.body.daily_rout_name;
   var validate = await libFunction.objValidator([
     distance,
     time,
@@ -87,7 +87,7 @@ const createDailyRoutModule = async (req) => {
     estimatedTime,
     vehicleSubTypeId,
     rideDateTime,
-    driverRoutName
+    driverRoutName,
   ]);
 
   if (validate == false) {
@@ -144,9 +144,9 @@ const createDailyRoutModule = async (req) => {
       value: uniqueId,
     },
     {
-      field:"daily_rout_name",
-      value: driverRoutName
-    }
+      field: "daily_rout_name",
+      value: driverRoutName,
+    },
   ];
 
   var dailyRout = await rideDb.createDailyRout(dailyRoutObj);
@@ -196,9 +196,116 @@ const deleteDailyRoutModule = async (req) => {
   return ridePoint;
 };
 
+const createRideModule = async (req) => {
+  var userId = req.body.user_id;
+  var distance = req.body.total_distance;
+  var time = req.body.estimated_time;
+  var rideTime = req.body.ride_date_time;
+  var vehicleType = req.body.vehicle_subtype_id;
+  var ridePoint = req.body.ride_point;
+  var estimatedTime = req.body.estimated_time;
+  var vehicleSubTypeId = req.body.vehicle_subtype_id;
+  var rideDateTime = req.body.ride_date_time;
+  var userId = req.user_id;
+  // var driverRoutName = req.body.daily_rout_name
+  var paymentType = req.body.payment_type;
+  var validate = await libFunction.objValidator([
+    distance,
+    time,
+    rideTime,
+    // vehicleType,
+    estimatedTime,
+    vehicleSubTypeId,
+    rideDateTime,
+    // driverRoutName,
+    paymentType,
+  ]);
+
+  if (validate == false) {
+    return errorMessage(constants.requestMessages.ERR_INVALID_BODY);
+  }
+
+  if (ridePoint.length == 0) {
+    return errorMessage(constants.requestMessages.ERR_INVALID_BODY);
+  }
+
+  if (
+    ridePoint.filter((x) => x.flag_start_point == true).length == 0 ||
+    ridePoint.filter((x) => x.flag_start_point == false).length == 0
+  ) {
+    return errorMessage(constants.requestMessages.ERR_INVALID_BODY);
+  }
+
+  const changeLogId = await libFunction.changeLogDetailsLib({
+    ipAddress: req.ip,
+    userId: userId,
+  });
+  const uniqueId = await libFunction.getUniqueId("ride", null);
+
+  var rideObj = [
+    { field: "user_id", value: userId },
+    { field: "driver_id", value: null },
+    { field: "change_log_id", value: changeLogId },
+    { field: "flag_change_by", value: true },
+    { field: "flag_ride_end", value: false },
+    { field: "unique_id", value: uniqueId },
+  ];
+
+  var createRide = await rideDb.createRideDB(rideObj);
+
+  if (createRide.status == false || createRide.data.length == 0) {
+    return errorMessage(constants.requestMessages.ERR_SOMTHIN_WENT_WRONG);
+  }
+
+  var rideId = createRide.data[0].ride_id;
+  var rideAmmoutObj = {"body": {
+    vehicle_sub_type: vehicleSubTypeId,
+    total_distance: distance,
+    estimated_time: estimatedTime,
+  }};
+  const rideAmmout = await rideFareModule.getRideFareModule(rideAmmoutObj);
+  var rideDetail = [
+    { field: "ride_id", value: rideId },
+    { field: "vehicle_subtype_id", value: vehicleSubTypeId },
+    { field: "payment_type", value: paymentType },
+    { field: "payment_amount", value: rideAmmout.totalRideFare },
+    {
+      field: "ride_date_time",
+      value: await libFunction.formatDateTimeLib(new Date(rideDateTime)),
+    },
+    { field: "total_distance", value: distance },
+    { field: "estimated_time", value: estimatedTime },
+    { field: "flag_deleted", value: false },
+    { field: "history_id", value: null },
+    { field: "change_log_id", value: changeLogId },
+    { field: "flag_change_by", value: true },
+  ];
+  
+  var creaetRideDetail = await rideDb.creaetRideDetailDB(rideDetail);
+
+  if (creaetRideDetail.status == false || creaetRideDetail.data.length == 0) {
+    return errorMessage(constants.requestMessages.ERR_SOMTHIN_WENT_WRONG);
+  }
+
+  ridePoint.map((x) => {
+    x["unique_id"] = uniqueId;
+    x["change_log_id"] = changeLogId;
+    return x;
+  });
+  var ridePoint = await rideFare.createRidePoint(ridePoint);
+
+  if (ridePoint.status == false || ridePoint.data.length == 0) {
+    return errorMessage();
+  }
+  await libFunction.updateUniqueId(uniqueId,createRide.data[0].ride_id);
+
+  return { status: true, data: ridePoint.data };
+};
+
 module.exports = {
   getRideAmountModule: getRideAmountModule,
   createDailyRoutModule: createDailyRoutModule,
   getDailyRoutModule: getDailyRoutModule,
   deleteDailyRoutModule: deleteDailyRoutModule,
+  createRideModule: createRideModule,
 };

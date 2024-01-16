@@ -20,9 +20,15 @@ const deleteDailyRoutController = async (req, res) => {
   return res.send(result);
 };
 
+const createRideController = async(req,res) => {
+  const result = await rideModule.createRideModule(req);
+  return res.send(result);
+}
+
 module.exports = {
   getRideAmountController: getRideAmountController,
   createDailyRoutCountroller: createDailyRoutCountroller,
   getDailyRoutCountroller: getDailyRoutCountroller,
   deleteDailyRoutController: deleteDailyRoutController,
+  createRideController:createRideController
 };
