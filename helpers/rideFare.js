@@ -2,7 +2,7 @@ const crud = require("../routes/crud");
 
 const calculateRideFare = (distanceInKM, perKMCost, timeInMin) => {
   const cost = parseFloat(distanceInKM) * parseFloat(perKMCost)
-  return cost = cost.toFixed(2);
+  return cost.toFixed(2);
 };
 
 const createRidePoint = async (ridePoint) => {
