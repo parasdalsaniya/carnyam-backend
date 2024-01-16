@@ -299,7 +299,7 @@ const createRideModule = async (req) => {
   }
   await libFunction.updateUniqueId(uniqueId,createRide.data[0].ride_id);
 
-  return { status: true, data: ridePoint.data };
+  return { status: true, data: "Ride created successfully" };
 };
 
 module.exports = {
