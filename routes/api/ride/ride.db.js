@@ -55,6 +55,16 @@ const getRideDetailByRideId = async (rideId) => {
   return result
 }
 
+const deleteRideById = async(rideId,changeLogId) => {
+  var result = await crud.executeQuery(`update ride set change_log_id = '${changeLogId}' ,flag_deleted = true where ride_id = '${rideId}'`)
+  return result
+}
+
+const getRideDetail = async(rideId) => {
+  var result = await crud.executeQuery(`select * from ride where history_id is null and flag_deleted = false and ride_id in ('${rideId}')`)
+  return result
+} 
+
 module.exports = {
   getVehicleDB: getVehicleDB,
   createDailyRout: createDailyRout,
@@ -63,5 +73,7 @@ module.exports = {
   deleteDailyRout: deleteDailyRout,
   createRideDB:createRideDB,
   creaetRideDetailDB:creaetRideDetailDB,
-  getRideDetailByRideId:getRideDetailByRideId
+  getRideDetailByRideId:getRideDetailByRideId,
+  deleteRideById:deleteRideById,
+  getRideDetail:getRideDetail
 };

@@ -353,11 +353,45 @@ const getRideModuke = async(req) => {
   return rideDetail
 }
 
+const cancleRideModule = async(req) => {
+
+  var rideId = req.query.ride_id
+  var userId = req.user_id
+
+  if(rideId == undefined || rideId == null || rideId == undefined){
+    return errorMessage(constants.requestMessages.ERR_INVALID_BODY)
+  }
+
+  var ride = await rideDb.getRideDetail(rideId)
+
+  if(ride.status == false || ride.data.length == 0){
+    return errorMessage("Ride Not Found")
+  }
+
+  if(ride.data[0].user_id != userId){
+    return errorMessage("Error invalid authentication found")
+  }
+  
+  const changeLogId = await libFunction.changeLogDetailsLib({
+    ipAddress: req.ip,
+    userId: userId,
+  });
+
+  var deleteRide = await rideDb.deleteRideById(rideId,changeLogId)
+
+  if(deleteRide.status == false){
+    return errorMessage()
+  }
+
+  return {status:true,data:"Ride Cancelled Successfully"}
+}
+
 module.exports = {
   getRideAmountModule: getRideAmountModule,
   createDailyRoutModule: createDailyRoutModule,
   getDailyRoutModule: getDailyRoutModule,
   deleteDailyRoutModule: deleteDailyRoutModule,
   createRideModule: createRideModule,
-  getRideModuke:getRideModuke
+  getRideModuke:getRideModuke,
+  cancleRideModule:cancleRideModule
 };
