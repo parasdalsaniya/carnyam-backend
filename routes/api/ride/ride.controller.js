@@ -25,10 +25,22 @@ const createRideController = async(req,res) => {
   return res.send(result);
 }
 
+const getRideController = async(req,res) => {
+  const result = await rideModule.getRideModuke(req)
+  return res.send(result)
+}
+
+const cancleRideController = async(req,res) => {
+  const result = await rideModule.cancleRideModule(req)
+  return res.send(result)
+}
+
 module.exports = {
   getRideAmountController: getRideAmountController,
   createDailyRoutCountroller: createDailyRoutCountroller,
   getDailyRoutCountroller: getDailyRoutCountroller,
   deleteDailyRoutController: deleteDailyRoutController,
-  createRideController:createRideController
+  createRideController:createRideController,
+  getRideController:getRideController,
+  cancleRideController:cancleRideController
 };
