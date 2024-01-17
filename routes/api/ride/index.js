@@ -24,4 +24,6 @@ router.delete(
 );
 
 router.post("/create-ride",middleware.checkAccessToken,rideController.createRideController)
+router.get("/create-ride",middleware.checkAccessToken,rideController.getRideController)
+
 module.exports = router;

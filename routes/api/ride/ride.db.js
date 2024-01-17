@@ -41,6 +41,20 @@ const creaetRideDetailDB = async (rideDetail) => {
   return result
 }
 
+const getRideDetailByRideId = async (rideId) => {
+  var result = await crud.executeQuery(`select * from ride
+  JOIN ride_detail
+  on ride.ride_id = ride_detail.ride_id
+  left JOIN driver
+  on driver.driver_id = ride.driver_id and driver.history_id is null and driver.flag_deleted = false
+  left JOIN public.user
+  on public.user.user_id = ride.user_id and public.user.history_id is null and public.user.flag_deleted = false
+  where ride.flag_deleted = false and ride.history_id is null
+  and ride_detail.flag_deleted = false and ride_detail.history_id is null and ride.ride_id
+  in ('${rideId}')`)
+  return result
+}
+
 module.exports = {
   getVehicleDB: getVehicleDB,
   createDailyRout: createDailyRout,
@@ -48,5 +62,6 @@ module.exports = {
   updateDailyRout: updateDailyRout,
   deleteDailyRout: deleteDailyRout,
   createRideDB:createRideDB,
-  creaetRideDetailDB:creaetRideDetailDB
+  creaetRideDetailDB:creaetRideDetailDB,
+  getRideDetailByRideId:getRideDetailByRideId
 };
