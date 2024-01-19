@@ -208,7 +208,7 @@ const createRideModule = async (req) => {
   var rideDateTime = req.body.ride_date_time;
   var userId = req.user_id;
   // var driverRoutName = req.body.daily_rout_name
-  var paymentType = req.body.payment_type;
+  var paymentType = false;
   var validate = await libFunction.objValidator([
     distance,
     time,
@@ -218,9 +218,9 @@ const createRideModule = async (req) => {
     vehicleSubTypeId,
     rideDateTime,
     // driverRoutName,
-    paymentType,
+    // paymentType,
   ]);
-
+  console.log(':::::::::::::::::::::',paymentType)
   if (validate == false) {
     return errorMessage(constants.requestMessages.ERR_INVALID_BODY);
   }
@@ -249,7 +249,7 @@ const createRideModule = async (req) => {
     { field: "flag_change_by", value: true },
     { field: "flag_ride_end", value: false },
     { field: "unique_id", value: uniqueId },
-    { field: "flag_deleted", value: uniqueId },
+    { field: "flag_deleted", value: false },
   ];
 
   var createRide = await rideDb.createRideDB(rideObj);
@@ -299,6 +299,7 @@ const createRideModule = async (req) => {
     return errorMessage();
   }
   await libFunction.updateUniqueId(uniqueId,createRide.data[0].ride_id);
+  req.query["ride_id"] = createRide.data[0].ride_id
   const rideModule = await getRideModuke(req)
   return rideModule;
 };
