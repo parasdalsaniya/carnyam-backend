@@ -68,7 +68,7 @@ const updateUserLiveLocation = async (location) => {
   await crud.executeQuery(`UPDATE user_live_location
 	SET  
   ull_ride_point_name='${location.ride_point_name.replaceAll("'", "''")}', 
-  ull_latitude='${location.latitude}', dll_longitude='${location.longitude}', 
+  ull_latitude='${location.latitude}', ull_longitude='${location.longitude}', 
   geometry=ST_SetSRID(ST_MakePoint(${location.longitude}, ${
     location.latitude
   }), 4326),
