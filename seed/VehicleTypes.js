@@ -23,13 +23,13 @@ const vehicleSubTypes = [
         vehicle_type: 'bike',
         name: 'bike',
         vehicle_subtype_price_per_km: 9,
-        vehicle_subtype_num_of_seats: 4
+        vehicle_subtype_num_of_seats: 1
     },
     {
         vehicle_type: 'rickshaw',
         name: 'rickshaw',
         vehicle_subtype_price_per_km: 12,
-        vehicle_subtype_num_of_seats: 4
+        vehicle_subtype_num_of_seats: 3
     },
 ]
 
