@@ -17,3 +17,5 @@ reject - just reject
 
 4) server -> user ("nearest-driver-found")
 send response to user
+
+5) Remaning : Find Driver By Vichale Type ( Find Nearest Driver ) 
