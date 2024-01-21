@@ -208,7 +208,7 @@ const createRideModule = async (req) => {
   var rideDateTime = req.body.ride_date_time;
   var userId = req.user_id;
   // var driverRoutName = req.body.daily_rout_name
-  var paymentType = req.body.payment_type;
+  var paymentType = false;
   var validate = await libFunction.objValidator([
     distance,
     time,
@@ -218,9 +218,9 @@ const createRideModule = async (req) => {
     vehicleSubTypeId,
     rideDateTime,
     // driverRoutName,
-    paymentType,
+    // paymentType,
   ]);
-
+  console.log(':::::::::::::::::::::',paymentType)
   if (validate == false) {
     return errorMessage(constants.requestMessages.ERR_INVALID_BODY);
   }
@@ -249,7 +249,7 @@ const createRideModule = async (req) => {
     { field: "flag_change_by", value: true },
     { field: "flag_ride_end", value: false },
     { field: "unique_id", value: uniqueId },
-    { field: "flag_deleted", value: uniqueId },
+    { field: "flag_deleted", value: false },
   ];
 
   var createRide = await rideDb.createRideDB(rideObj);
@@ -299,16 +299,29 @@ const createRideModule = async (req) => {
     return errorMessage();
   }
   await libFunction.updateUniqueId(uniqueId,createRide.data[0].ride_id);
-  const rideModule = await getRideModuke(req)
+  req.query["ride_id"] = createRide.data[0].ride_id
+  const rideModule = await getRideModule(req)
   return rideModule;
 };
 
-const getRideModuke = async(req) => {
+const getRideModule = async(req) => {
   var rideId = req.query.ride_id
   var userId = req.user_id
-
+  var driverId = req.driver_id
   if(rideId == undefined || rideId == null || rideId == undefined){
     return errorMessage(constants.requestMessages.ERR_INVALID_BODY)
+  }
+
+  if(userId == undefined || userId == null || userId == ""){
+    userId == null
+  }
+
+  if(driverId == undefined || driverId == null || driverId == ""){
+    userId == null
+  }
+
+  if(userId == null && driverId == null){
+    return errorMessage()
   }
 
   var rideDetail = await rideDb.getRideDetailByRideId(rideId)
@@ -316,9 +329,14 @@ const getRideModuke = async(req) => {
   if(rideDetail.status == false || rideDetail.data.length == 0){
     return errorMessage()
   }
-
-  if(rideDetail.data[0].user_id != userId){
-    return errorMessage("Error invalid authentication found")
+  if(userId != null){
+    if(rideDetail.data[0].user_id != userId){
+      return errorMessage("Error invalid authentication found")
+    }
+  }else{
+    if(rideDetail.data[0].driver_id != driverId){
+      return errorMessage("Error invalid authentication found")
+    }
   }
 
   delete rideDetail.data[0].history_id
@@ -392,6 +410,6 @@ module.exports = {
   getDailyRoutModule: getDailyRoutModule,
   deleteDailyRoutModule: deleteDailyRoutModule,
   createRideModule: createRideModule,
-  getRideModuke:getRideModuke,
+  getRideModule:getRideModule,
   cancleRideModule:cancleRideModule
 };

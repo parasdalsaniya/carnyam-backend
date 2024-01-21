@@ -9,6 +9,7 @@ var path = require("path");
 var userModule = require("../users/users.module");
 const { error } = require("console");
 const crud = require("../../crud");
+const rideFare = require("../../../helpers/rideFare");
 // var data = require("../../../public");
 const googleSignUpModule = async (req) => {
   var clientID = process.env.CLIENT_ID;
@@ -104,7 +105,7 @@ const signUpWithPasswordModule = async (req, res) => {
       };
       // }
     }
-
+    
     const timestamp = await libFunction.formatDateTimeLib(new Date());
     var hashedPassword = null;
     if (password != null) {
@@ -129,7 +130,7 @@ const signUpWithPasswordModule = async (req, res) => {
         error: constant.requestMessages.ERR_SOMTHIN_WENT_WRONG,
       };
     }
-
+    await rideFare.createUserLiveLocation(result.data[0].user_id,timestamp)
     const otp = await libFunction.generateOTP(6);
     await libFunction.sendMail(
       userEmail,

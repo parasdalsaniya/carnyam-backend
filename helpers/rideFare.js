@@ -83,6 +83,18 @@ const createUserLiveLocation = async (userId, timestamp) => {
   VALUES ('${userId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}','622003',false);`);
 };
 
+const updateDriverRideFlag = async(driverId,flagRideOn) => {
+  await crud.executeQuery(`UPDATE driver_live_location
+  SET
+  flag_ride_on = ${flagRideOn}
+  WHERE driver_id='${driverId}'`)
+}
+
+const getRiderLiveLocation = async(userId) => {
+  const result = await crud.executeQuery(`select * from user_live_location where user_id in ('${userId}')`)
+  return result
+}
+
 module.exports = {
   calculateRideFare: calculateRideFare,
   createRidePoint: createRidePoint,
@@ -91,5 +103,7 @@ module.exports = {
   createDriverLiveLocation: createDriverLiveLocation,
   getNearestDriver: getNearestDriver,
   updateUserLiveLocation:updateUserLiveLocation,
-  createUserLiveLocation:createUserLiveLocation
+  createUserLiveLocation:createUserLiveLocation,
+  updateDriverRideFlag:updateDriverRideFlag,
+  getRiderLiveLocation:getRiderLiveLocation
 };
