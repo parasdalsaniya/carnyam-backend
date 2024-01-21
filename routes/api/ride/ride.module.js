@@ -394,7 +394,9 @@ const cancleRideModule = async(req) => {
     ipAddress: req.ip,
     userId: userId,
   });
-
+  if(ride.data[0].driver_id != null){
+    await rideFare.updateDriverRideFlag(ride.data[0].driver_id,false)
+  }
   var deleteRide = await rideDb.deleteRideById(rideId,changeLogId)
 
   if(deleteRide.status == false){
