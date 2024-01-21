@@ -18,7 +18,7 @@ const addDriverLiveLocation = async (req) => {
 
 const findDriverLiveLocation = async (req) => {
   try {
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     console.log("socket.user_id", req.user_id);
     const { ride_point } = req.body;
     
@@ -35,16 +35,17 @@ const findDriverLiveLocation = async (req) => {
       NEAREST_DRIVER_RADIUS_IN_KM
     );
     var userLiveLocationObj = {
-      "ride_point_name": rideStartPoint.ride_point_name,
-      "latitude": rideStartPoint.latitude,
-      "longitude": rideStartPoint.longitude,
+      "ride_point_name": rideStartPoint[0].ride_point_name,
+      "latitude": rideStartPoint[0].latitude,
+      "longitude": rideStartPoint[0].longitude,
       "timestamp": await libFunction.formatDateTimeLib(new Date()),
-      "socket_id": req.socket_id,
+      "socket_id": req.id,
       "user_id": req.user_id,
     };
 
     await rideFare.updateUserLiveLocation(userLiveLocationObj);
     // send empty array to user that not drivers availables in pickup area locations
+    console.log('Number Of Driver Neare Me',drivers.data.length)
     if (drivers.data.length == 0) {
       req.to(req.id).emit("nearest-driver-found", drivers.data);
       return "";
@@ -115,12 +116,10 @@ const nearestDriverResponse = async (req) => {
         return "";
       }
 
-      var rideDetailObj = {
-        query: {
-          ride_id: req.rideId,
-        },
-      };
-      var rideDetail = await rideModule.getRideModule(rideDetailObj);
+      req["query"] = {
+        ride_id: rideId,
+      }
+      var rideDetail = await rideModule.getRideModule(req);
 
       if(rideDetail.status == false){
         await rideFare.updateDriverRideFlag(driverId, false);
