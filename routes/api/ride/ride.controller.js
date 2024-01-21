@@ -26,7 +26,7 @@ const createRideController = async(req,res) => {
 }
 
 const getRideController = async(req,res) => {
-  const result = await rideModule.getRideModuke(req)
+  const result = await rideModule.getRideModule(req)
   return res.send(result)
 }
 

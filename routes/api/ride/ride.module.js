@@ -300,16 +300,28 @@ const createRideModule = async (req) => {
   }
   await libFunction.updateUniqueId(uniqueId,createRide.data[0].ride_id);
   req.query["ride_id"] = createRide.data[0].ride_id
-  const rideModule = await getRideModuke(req)
+  const rideModule = await getRideModule(req)
   return rideModule;
 };
 
-const getRideModuke = async(req) => {
+const getRideModule = async(req) => {
   var rideId = req.query.ride_id
   var userId = req.user_id
-
+  var driverId = req.driver_id
   if(rideId == undefined || rideId == null || rideId == undefined){
     return errorMessage(constants.requestMessages.ERR_INVALID_BODY)
+  }
+
+  if(userId == undefined || userId == null || userId == ""){
+    userId == null
+  }
+
+  if(driverId == undefined || driverId == null || driverId == ""){
+    userId == null
+  }
+
+  if(userId == null && driverId == null){
+    return errorMessage()
   }
 
   var rideDetail = await rideDb.getRideDetailByRideId(rideId)
@@ -317,9 +329,14 @@ const getRideModuke = async(req) => {
   if(rideDetail.status == false || rideDetail.data.length == 0){
     return errorMessage()
   }
-
-  if(rideDetail.data[0].user_id != userId){
-    return errorMessage("Error invalid authentication found")
+  if(userId != null){
+    if(rideDetail.data[0].user_id != userId){
+      return errorMessage("Error invalid authentication found")
+    }
+  }else{
+    if(rideDetail.data[0].driver_id != driverId){
+      return errorMessage("Error invalid authentication found")
+    }
   }
 
   delete rideDetail.data[0].history_id
@@ -393,6 +410,6 @@ module.exports = {
   getDailyRoutModule: getDailyRoutModule,
   deleteDailyRoutModule: deleteDailyRoutModule,
   createRideModule: createRideModule,
-  getRideModuke:getRideModuke,
+  getRideModule:getRideModule,
   cancleRideModule:cancleRideModule
 };
