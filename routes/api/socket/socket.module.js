@@ -136,8 +136,30 @@ const nearestDriverResponse = async (req) => {
   }
 };
 
+const sendDriverLiveLocationModule = async (req) => {
+  try {
+    console.log('send-driver-live-location: body data: ', req.body)
+    const rider = await getRiderLiveLocation(req.body.user_id);
+    req.to(rider.data[0].socket_id).emit('get-driver-live-location', req.body)
+  } catch (error) {
+    console.log("Error in sendDriverLiveLocationModule:", error);
+  }
+};
+
+const sendUserLiveLocationModule = async (req) => {
+  try {
+    console.log('send-user-live-location: body data:', req.body)
+    const driver = await getDriverLiveLocation(req.body.user_id);
+    req.to(driver.data[0].socket_id).emit('get-user-live-location', req.body)
+  } catch (error) {
+    console.log("Error in sendUserLiveLocationModule:", error);
+  }
+};
+
 module.exports = {
   addDriverLiveLocation,
   findDriverLiveLocation,
   nearestDriverResponse,
+  sendDriverLiveLocationModule,
+  sendUserLiveLocationModule,
 };
