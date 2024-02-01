@@ -39,6 +39,17 @@ function initSocket(server) {
       socket["body"] = data;
       await socketModule.nearestDriverResponse(socket);
     })
+
+    socket.on("send-driver-live-location", async (data) => {
+      socket["body"] = data;
+      await socketModule.sendDriverLiveLocationModule(socket)
+    })
+
+    socket.on("send-user-live-location", async (data) => {
+      socket["body"] = data;
+      await socketModule.sendUserLiveLocationModule(socket)
+    })
+
   });
 }
 
