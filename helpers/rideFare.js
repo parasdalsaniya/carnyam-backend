@@ -95,6 +95,11 @@ const getRiderLiveLocation = async(userId) => {
   return result
 }
 
+const getDriverLiveLocation = async(driver_id) => {
+  const result = await crud.executeQuery(`select * from driver_live_location where driver_id in ('${driver_id}')`)
+  return result
+}
+
 module.exports = {
   calculateRideFare: calculateRideFare,
   createRidePoint: createRidePoint,
@@ -105,5 +110,6 @@ module.exports = {
   updateUserLiveLocation:updateUserLiveLocation,
   createUserLiveLocation:createUserLiveLocation,
   updateDriverRideFlag:updateDriverRideFlag,
-  getRiderLiveLocation:getRiderLiveLocation
+  getRiderLiveLocation:getRiderLiveLocation,
+  getDriverLiveLocation: getDriverLiveLocation,
 };
