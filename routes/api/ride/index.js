@@ -27,4 +27,7 @@ router.post("/create-ride",middleware.checkAccessToken,rideController.createRide
 router.get("/get-ride",middleware.checkAccessToken,rideController.getRideController)
 router.delete("/cancle-ride",middleware.checkAccessToken,rideController.cancleRideController)
 
+router.delete("/delete-ride",middleware.checkAccessToken,rideController.cancleRideController)
+router.post("/book-ride",middleware.checkAccessToken,rideController.bookRideController)
+router.post("/ride-otp",middleware.checkAccessToken,rideController.rideOtpController)
 module.exports = router;

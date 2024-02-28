@@ -65,6 +65,17 @@ const getRideDetail = async(rideId) => {
   return result
 } 
 
+const updateRideDetail = async(updateRideObj,updateRideWherCon) => {
+  const result = await crud.executeQuery(crud.makeUpdateQueryString("ride",updateRideObj,updateRideWherCon))
+  return result
+}
+
+const updateRideDetailValue = async(rideDetail,rideDetsilWhereCon) =>{
+  const result = await crud.executeQuery(crud.makeUpdateQueryString("ride_detail",rideDetail,rideDetsilWhereCon))
+  return result
+}
+
+
 module.exports = {
   getVehicleDB: getVehicleDB,
   createDailyRout: createDailyRout,
@@ -75,5 +86,7 @@ module.exports = {
   creaetRideDetailDB:creaetRideDetailDB,
   getRideDetailByRideId:getRideDetailByRideId,
   deleteRideById:deleteRideById,
-  getRideDetail:getRideDetail
+  getRideDetail:getRideDetail,
+  updateRideDetail:updateRideDetail,
+  updateRideDetailValue:updateRideDetailValue
 };

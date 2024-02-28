@@ -155,10 +155,25 @@ const sendUserLiveLocationModule = async (req) => {
   }
 };
 
+const bookRideFromUserModule = async(req) => {
+  try{
+    const driver = await rideFare.getDriverLiveLocation(req.body.driver_id);
+    var bookRide = await rideModule.bookRideModule(req.body)
+    if(bookRide.status == false){
+      req.to(driver.data[0].socket_id).emit('get-user-live-location', bookRide)  
+    }
+    req.to(driver.data[0].socket_id).emit('get-user-live-location', req.body)
+  }catch(error) {
+    console.log("Error in sendUserLiveLocationModule:", error);
+  }
+}
+
+
 module.exports = {
   addDriverLiveLocation,
   findDriverLiveLocation,
   nearestDriverResponse,
   sendDriverLiveLocationModule,
   sendUserLiveLocationModule,
+  bookRideFromUserModule
 };

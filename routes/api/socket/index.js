@@ -49,7 +49,6 @@ function initSocket(server) {
       socket["body"] = data;
       await socketModule.sendUserLiveLocationModule(socket)
     })
-
   });
 }
 

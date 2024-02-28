@@ -1,4 +1,5 @@
 const crud = require("../routes/crud");
+const libFunction = require("../helpers/libFunction")
 
 const calculateRideFare = (distanceInKM, perKMCost, timeInMin) => {
   const cost = parseFloat(distanceInKM) * parseFloat(perKMCost)
@@ -50,16 +51,30 @@ const createDriverLiveLocation = async (driverId, timestamp) => {
   VALUES ('${driverId}', 'Ahmedabad', '23.022505', '72.571365', ST_SetSRID(ST_MakePoint(72.571365, 23.022505), 4326),'${timestamp}','622003',false);`);
 };
 
+// const getNearestDriver = async (latitude, longitude, radius) => {
+//   var sql = `SELECT 
+//       *,
+//       ST_Distance(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography) / 1000 AS distance_km,
+//       ST_Distance(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography) AS distance_mit
+//     FROM 
+//       driver_live_location
+//     WHERE 
+//     ST_DWithin(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography, ${radius}) -- 5000 meters = 5 km
+//       ORDER BY distance_km;`;
+//   var result = await crud.executeQuery(sql);
+//   return result;
+// };
+
 const getNearestDriver = async (latitude, longitude, radius) => {
   var sql = `SELECT 
       *,
       ST_Distance(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography) / 1000 AS distance_km,
       ST_Distance(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography) AS distance_mit
     FROM 
-      driver_live_location
-    WHERE 
-    ST_DWithin(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography, ${radius}) -- 5000 meters = 5 km
-      ORDER BY distance_km;`;
+      driver_live_location;`;
+    // WHERE 
+    // ST_DWithin(geometry::geography, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)::geography, ${radius})
+    //   ORDER BY distance_km
   var result = await crud.executeQuery(sql);
   return result;
 };
@@ -100,6 +115,20 @@ const getDriverLiveLocation = async(driver_id) => {
   return result
 }
 
+const createRideOtp = async(rideId,userId) => {
+  var rideOtp = await libFunction.generateOTP(6)
+  
+  await crud.executeQuery(`update ride set ride_otp = '${rideOtp}' where ride_id = '${rideId}'`)
+
+  var userDetail = await crud.executeQuery(`select * from public.user where user_id = '${userId}'`)
+
+  // await libFunction.sendMail(
+  //   userDetail.data[0].user_email,
+  //   `<h1>${rideOtp}</h1>`,
+  //   "Ride Point"
+  // );
+}
+
 module.exports = {
   calculateRideFare: calculateRideFare,
   createRidePoint: createRidePoint,
@@ -112,4 +141,5 @@ module.exports = {
   updateDriverRideFlag:updateDriverRideFlag,
   getRiderLiveLocation:getRiderLiveLocation,
   getDriverLiveLocation: getDriverLiveLocation,
+  createRideOtp:createRideOtp
 };
