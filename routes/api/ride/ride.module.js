@@ -475,6 +475,9 @@ const bookRideModule = async(req) => {
 
   await rideFare.createRideOtp(rideId,userId)
   req.query.ride_id = rideId
+  var driverLiveLocation = await rideFare.getDriverLiveLocation(rideDetail.data[0].driver_id)
+  const io = req.app.get('socketio');
+  io.to(driverLiveLocation.data[0].socket_id).emit('get-user-live-location', req)
   var rideModule = await getRideModule(req)
   return rideModule
 }
