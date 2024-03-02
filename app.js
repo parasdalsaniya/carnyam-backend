@@ -10,7 +10,7 @@ const { initSocket } = require("./routes/api/socket");
 var app = express();
 
 const server = http.createServer(app);
-initSocket(server)
+initSocket(server, app)
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

@@ -2,12 +2,14 @@ const { Server } = require("socket.io");
 const { checkSocketAccessToken } = require("../../middleware");
 const socketModule = require("./socket.module");
 
-function initSocket(server) {
+function initSocket(server, app) {
   const io = new Server(server, {
     cors: {
       origin: "*",
     },
   });
+
+  app.set("socketio", io);
 
   io.use(async (socket, next) => {
     try {

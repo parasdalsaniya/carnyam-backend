@@ -523,7 +523,8 @@ const rideOtpModule = async(req) => {
   }
 
   var userLiveLocation = await rideFare.getRiderLiveLocation(rideDetail.data[0].user_id)
-  req.to(userLiveLocation.data[0].socket_id).emit('start-ride', {status:true,data:"Start Ride"})
+  const io = req.app.get('socketio');
+  io.to(userLiveLocation.data[0].socket_id).emit('start-ride', {status:true,data:"Start Ride"})
   return {status:true,data:"Start Ride"}
 }   
 
