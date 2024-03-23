@@ -10,6 +10,8 @@ router.use("/api/storage", require("./api/storage"));
 router.use("/api/driver-auth", require("./api/driver_auth"));
 router.use("/api/generic", require("./api/generic"));
 router.use("/api/ride", require("./api/ride"));
+router.use("/api/payment", require("./api/razorpay"));
+
 router.use("**", (req, res) => {
   return res.send({
     status: false,
