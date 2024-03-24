@@ -9,8 +9,8 @@ const { orderController, paymentCaptureController } = require("./razorpay.contro
 //   userController.getUserDetailController
 // );
 
-router.post("/order", orderController)
+router.post("/order", middleware.checkAccessToken, orderController)
 
-router.post('/paymentCapture', middleware.checkAccessToken, paymentCaptureController)
+router.post('/paymentCapture', paymentCaptureController)
 
 module.exports = router;
