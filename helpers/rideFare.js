@@ -3,7 +3,7 @@ const libFunction = require("../helpers/libFunction")
 
 const calculateRideFare = (distanceInKM, perKMCost, timeInMin) => {
   const cost = parseFloat(distanceInKM) * parseFloat(perKMCost)
-  return cost.toFixed(2);
+  return Math.ceil(cost);
 };
 
 const createRidePoint = async (ridePoint) => {

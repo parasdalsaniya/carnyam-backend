@@ -2,12 +2,21 @@ const { error } = require("console");
 var path = require("path");
 const Razorpay = require("razorpay");
 const crypto = require('crypto')
+const { getRideDetailByRideId } = require("../ride/ride.db.js")
 
 const { RAZORPAY_SECRET_KEY_FOR_SIGNATURE } = process.env;
 
 const orderModule = async (req, res) => {
-  const data = req.body;
-  console.log("data", data)
+  const { ride_id } = req.body;
+  console.log("ride_id", ride_id)
+
+  const ride = await getRideDetailByRideId(ride_id);
+  if (ride.status == false || ride.data.length == 0) {
+    return {
+      status: false,
+      error: "Ride Not Found",
+    };
+  }
 
   const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
@@ -15,8 +24,8 @@ const orderModule = async (req, res) => {
   });
 
   const options = {
-    amount: req.body.amount,
-    currency: req.body.currency,
+    amount: Math.ceil(ride.data[0].payment_amount),
+    currency: "INR",
     receipt: req.body.ride_id,
     payment_capture: 1
   };
