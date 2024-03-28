@@ -22,9 +22,9 @@ const orderModule = async (req, res) => {
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
-
+  console.log('Math.ceil(ride.data[0].payment_amount)', Math.ceil(ride.data[0].payment_amount))
   const options = {
-    amount: Math.ceil(ride.data[0].payment_amount),
+    amount: 100 * Math.ceil(ride.data[0].payment_amount), // conver into paisa
     currency: "INR",
     receipt: req.body.ride_id,
     payment_capture: 1
@@ -36,7 +36,7 @@ const orderModule = async (req, res) => {
     const data = {
       order_id: response.id,
       currency: "response.currency",
-      amount: response.amount * 100,
+      amount: response.amount / 100, // conver into rupee
     }
     res.json({
       status: true,
